@@ -6,7 +6,7 @@ import { SemanticDiagnosticCode } from '../../../diagnostics'
 import type { ValidatorInterface } from './'
 
 export class MediasValidator implements ValidatorInterface<OCSMediaObject> {
-  readonly MEDIA_ENUMS = ['image', 'video', 'link']
+  readonly MEDIA_ENUMS = ['image', 'video', 'audio', 'document', 'link']
   additionalEnums: string[] = []
 
   validate(path: Path, document: OCSMediaObject, context: Context): void {

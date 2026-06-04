@@ -13,6 +13,7 @@ export class Recipe {
   constructor(
     readonly id: string | null,
     readonly name: string,
+    readonly summary: string,
     readonly version: string,
     readonly category: string[],
     readonly tags: string[],

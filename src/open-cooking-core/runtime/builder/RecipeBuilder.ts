@@ -19,6 +19,7 @@ export class RecipeBuilder
 {
   private id: string | null = null
   private name!: string
+  private summary!: string
   private version!: string
   private category: string[] = []
   private tags: string[] = []
@@ -40,6 +41,10 @@ export class RecipeBuilder
   }
   withName(name: string) {
     this.name = name
+    return this
+  }
+  withSummary(summary: string) {
+    this.summary = summary
     return this
   }
   withVersion(version: string) {
@@ -106,6 +111,7 @@ export class RecipeBuilder
     return new Recipe(
       this.id,
       this.name,
+      this.summary,
       this.version,
       this.category,
       this.tags,

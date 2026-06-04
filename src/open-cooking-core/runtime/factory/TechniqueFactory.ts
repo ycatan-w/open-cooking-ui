@@ -21,7 +21,7 @@ export class TechniqueFactory extends RuntimeObjectFactory {
 
   private static createCommonBuilder(source: OCSTechniqueObject): TechniqueBuilder {
     const builder = Technique.builder()
-      .withName(source.name)
+      .withName(source.name || '')
       .withSummary(source.summary || '')
       .withDescription(source.description || '')
       .withCategory(source.category || 'preparation')

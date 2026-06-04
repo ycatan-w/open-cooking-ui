@@ -6,15 +6,20 @@ export class DurationResolver {
     for (const recipe of Object.values(document.recipes || {})) {
       if (recipe.details?.cook_time) {
         const cookDuration = this.parseDuration(recipe.details?.cook_time || '')
-        recipe.details.__cookTimeSecond = cookDuration?.seconds
+        recipe.details.__cookTimeSecond = cookDuration?.totalSeconds
       }
       if (recipe.details?.prep_time) {
         const prepDuration = this.parseDuration(recipe.details?.prep_time || '')
-        recipe.details.__prepTimeSecond = prepDuration?.seconds
+        recipe.details.__prepTimeSecond = prepDuration?.totalSeconds
       }
       if (recipe.details?.total_time) {
         const totalDuration = this.parseDuration(recipe.details?.total_time || '')
-        recipe.details.__totalTimeSecond = totalDuration?.seconds
+        recipe.details.__totalTimeSecond = totalDuration?.totalSeconds
+      }
+
+      for (const instruction of recipe.steps) {
+        const duration = this.parseDuration(instruction.duration || '')
+        instruction.__durationSecond = duration?.totalSeconds
       }
     }
   }

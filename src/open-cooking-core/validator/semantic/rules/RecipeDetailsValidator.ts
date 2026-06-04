@@ -7,9 +7,9 @@ import type { ValidatorInterface } from './'
 
 export class RecipeDetailsValidator implements ValidatorInterface<OCSRecipeDetailsObject> {
   validate(path: Path, document: OCSRecipeDetailsObject, context: Context): void {
-    const cookDuration = this.parseDuration(document?.cook_time || '')
-    const prepDuration = this.parseDuration(document?.prep_time || '')
-    const totalDuration = this.parseDuration(document?.total_time || '')
+    const cookDuration = this.parseDuration(document?.cook_time || '', context)
+    const prepDuration = this.parseDuration(document?.prep_time || '', context)
+    const totalDuration = this.parseDuration(document?.total_time || '', context)
 
     if (totalDuration === undefined) {
       return
@@ -25,37 +25,37 @@ export class RecipeDetailsValidator implements ValidatorInterface<OCSRecipeDetai
     }
   }
 
-  private parseDuration(value: string) {
+  private parseDuration(value: string, context: Context) {
     if (value.length < 1) {
       return
     }
     const regex = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/
-
     const match = value.match(regex)
 
     if (!match) {
-      throw new Error('Invalid duration')
+      context.diagnosticsCollector.collect(
+        SemanticValidationProcess.error({
+          code: SemanticDiagnosticCode.SEMANTIC_INVALID_DURATION,
+          message: 'Invalid duration format',
+        }),
+      )
+      return
     }
 
     const [, days, hours, minutes, seconds] = match
-
     const parsed = {
       days: Number(days ?? 0),
       hours: Number(hours ?? 0),
       minutes: Number(minutes ?? 0),
       seconds: Number(seconds ?? 0),
     }
-
     const totalSeconds =
       parsed.days * 86400 + parsed.hours * 3600 + parsed.minutes * 60 + parsed.seconds
 
     return {
       raw: value,
-
       ...parsed,
-
       totalSeconds,
-
       totalMinutes: totalSeconds / 60,
     }
   }

@@ -31,11 +31,23 @@ export class TechniquesValidator implements ValidatorInterface<OCSTechniqueObjec
   ]
   additionalEnums: string[] = []
   validate(path: Path, document: OCSTechniqueObject, context: Context): void {
-    referencesValidator.collectTechniqueRefs(
-      `#/${path.toReference().replace(/\/techniques\/\d+/, '')}`,
-      document,
-      context,
-    )
+    if (document.name && document.$ref) {
+      context.diagnosticsCollector.collect(
+        SemanticValidationProcess.error({
+          code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
+          message: 'Name and reference cannot be used at the same time',
+        }),
+      )
+    }
+
+    if (document.$ref) {
+      referencesValidator.collectTechniqueRefs(
+        `#/${path.toReference().replace(/\/techniques\/\d+/, '')}`,
+        document,
+        context,
+      )
+    }
+
     if (document.name?.length === 0) {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({

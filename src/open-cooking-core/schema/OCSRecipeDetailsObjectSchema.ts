@@ -1,11 +1,7 @@
 import * as z from 'zod'
-import { BaseOCSObjectSchema, OCSAnnotationObjectSchema } from './'
+import { BaseOCSObjectSchema, ISO8601DurationSchema, OCSAnnotationObjectSchema } from './'
 
 export type OCSRecipeDetailsObject = z.infer<typeof OCSRecipeDetailsObjectSchema>
-
-const ISO8601DurationSchema = z
-  .string()
-  .regex(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/i, 'Invalid ISO 8601 duration')
 
 export const OCSRecipeDetailsObjectSchema = BaseOCSObjectSchema.extend({
   yield: z.string().optional(),
