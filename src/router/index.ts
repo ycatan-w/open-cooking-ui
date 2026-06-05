@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, useRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
 import {
   PlaygroundThemeView,
@@ -6,13 +6,13 @@ import {
   PlaygroundPage2View,
   PlaygroundPage3View,
 } from '@/components/playgrounds'
-import ReadContent from '@/ReadContent.vue'
 import CookContent from '@/CookContent.vue'
 import ExploreContent from '@/ExploreContent.vue'
-import { getOpenCookingManager } from '@/open-cooking-manager'
 import LoadingView from '@/components/LoadingView.vue'
+import { useOpenCookingManager } from '@/composables/useOpenCookingManager'
+import ReadRecipeView from '@/components/ReadRecipeView.vue'
 
-const manager = getOpenCookingManager()
+const { manager } = useOpenCookingManager()
 
 export default createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +34,7 @@ export default createRouter({
           path: 'loading',
           component: LoadingView,
           beforeEnter: () => {
-            if (manager.hasLoadedSpec()) {
+            if (manager.loadedSpecIsValid()) {
               return '/view'
             }
           },
@@ -42,19 +42,18 @@ export default createRouter({
 
         {
           path: 'view',
-          component: ReadContent,
+          component: ReadRecipeView,
           beforeEnter: () => {
-            if (!manager.hasLoadedSpec()) {
+            if (!manager.loadedSpecIsValid()) {
               return '/loading'
             }
           },
         },
-
         {
           path: 'focus',
           component: CookContent,
           beforeEnter: () => {
-            if (!manager.hasLoadedSpec()) {
+            if (!manager.loadedSpecIsValid()) {
               return '/loading'
             }
           },
@@ -64,7 +63,7 @@ export default createRouter({
           path: 'explore',
           component: ExploreContent,
           beforeEnter: () => {
-            if (!manager.hasLoadedSpec()) {
+            if (!manager.loadedSpecIsValid()) {
               return '/loading'
             }
           },

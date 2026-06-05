@@ -25,7 +25,7 @@ export type OpenCookingInput =
     }
 export type OpenCookingOutput = {
   data: OpenCookingDefinition | null
-  metadata?: {}
+  metadata?: { format: string | null }
   diagnostics: Diagnostic<DiagnosticCategory>[]
 }
 

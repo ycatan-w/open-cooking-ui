@@ -26,6 +26,7 @@ export class Recipe {
     readonly sourceName: string,
     readonly sourceUrl: string,
     readonly sourceSummary: string,
+    readonly sourceAnnotations: Annotation[],
     readonly annotations: Annotation[],
     readonly media: Media[],
   ) {}

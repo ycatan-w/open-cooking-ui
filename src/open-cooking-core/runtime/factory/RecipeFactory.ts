@@ -32,12 +32,13 @@ export class RecipeFactory extends RuntimeObjectFactory {
       .withName(source.name)
       .withSummary(source.summary || '')
       .withVersion(source.version || '')
-      .withDifficulty(source.difficulty?.value || 'medium')
+      .withDifficulty(source.difficulty?.value || '')
       .withDifficultyRational(source.difficulty?.rationale || '')
       .withSourceName(source.source?.name || '')
       .withSourceSummary(source.source?.summary || '')
       .withSourceUrl(source.source?.url || '')
     ;(source.category || []).forEach((c) => builder.addCategory(c))
+    ;(source.tags || []).forEach((c) => builder.addTag(c))
     if (RecipeFactory.isRecipeDetails(source.details)) {
       builder.withRecipeDetails(RecipeDetailsFactory.create(source.details, context))
     }

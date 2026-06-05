@@ -40,10 +40,13 @@ export class Context {
       console.log(`Context.throwIfAborted`)
       throw new OpenCookingCancelledError()
     }
-    // this.signal?.throwIfAborted()
   }
 
-  /** Method to simulate process times. can be used with process event listeners to allow abort. For dev purpose only. */
+  /**
+   * Development helper that introduces an artificial
+   * delay to simulate process execution time and test
+   * abort handling.
+   */
   async sleep(ms: number): Promise<void> {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {

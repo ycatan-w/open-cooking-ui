@@ -124,6 +124,7 @@ export class RecipeBuilder
       this.sourceName,
       this.sourceUrl,
       this.sourceSummary,
+      this.sourceAnnotations,
       this.annotations,
       this.media,
     )
