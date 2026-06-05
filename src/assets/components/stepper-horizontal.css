@@ -1,0 +1,272 @@
+/* ===================== */
+/* STEPPER HORIZONTAL    */
+/* ===================== */
+
+.stepper-horizontal {
+  --step-size: 1rem;
+  --step-border-width: 2px;
+  --step-line-width: 2px;
+
+  --step-color: var(--oc-violet);
+
+  display: flex;
+}
+
+/* ===================== */
+/* STEP                  */
+/* ===================== */
+
+.step {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-marker {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ===================== */
+/* CONNECTORS            */
+/* ===================== */
+
+/*
+ * Pending
+ * ○────○
+ */
+
+.step:not(:last-child) .step-marker::after {
+  content: '';
+
+  position: absolute;
+
+  top: 50%;
+
+  left: calc(50% + var(--step-size) / 2);
+  right: calc(-50% + var(--step-size) / 2);
+
+  height: var(--step-line-width);
+
+  transform: translateY(-50%);
+
+  background: var(--oc-border);
+}
+
+/*
+ * Completed
+ * ●────●
+ */
+
+.step.completed:not(:last-child) .step-marker::after {
+  background: var(--step-color);
+}
+
+/*
+ * Current Path
+ * ●┄┄┄◉
+ */
+
+.step.step-current-path:not(:last-child) .step-marker::after {
+  background: transparent;
+
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--step-color),
+    var(--step-color) 3px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+/* ===================== */
+/* BULLETS               */
+/* ===================== */
+
+.step-bullet {
+  position: relative;
+
+  width: var(--step-size);
+  height: var(--step-size);
+
+  border-width: var(--step-border-width);
+  border-style: solid;
+
+  border-color: var(--oc-border);
+
+  border-radius: 9999px;
+
+  background: var(--oc-surface);
+
+  z-index: 1;
+
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+/*
+ * Completed
+ * ●
+ */
+
+.step.completed .step-bullet {
+  background: var(--step-color);
+  border-color: var(--step-color);
+}
+
+/*
+ * Current
+ * ◉
+ */
+
+.step.current .step-bullet {
+  border-color: var(--step-color);
+}
+
+.step.current .step-bullet::after {
+  content: '';
+
+  position: absolute;
+
+  inset: 3px;
+
+  border-radius: 9999px;
+
+  background: var(--step-color);
+}
+
+/* ===================== */
+/* LABELS                */
+/* ===================== */
+
+.step-label {
+  margin-top: 0.75rem;
+
+  max-width: 10rem;
+
+  text-align: center;
+
+  color: var(--oc-text-muted);
+
+  font-size: 0.875rem;
+}
+
+.step.completed .step-label {
+  color: var(--oc-text);
+}
+
+.step.current .step-label {
+  color: var(--step-color);
+
+  font-weight: 600;
+}
+
+/* ===================== */
+/* OPTIONAL ANIMATIONS   */
+/* ===================== */
+
+/*
+ * Add:
+ *
+ * .stepper-horizontal.stepper-flow
+ *
+ * to enable animations
+ */
+
+.stepper-flow .step.current .step-bullet {
+  animation: step-horizontal-pulse 2s infinite;
+}
+
+.stepper-flow .step.current .step-bullet::after {
+  animation: step-horizontal-dot 1.2s ease-in-out infinite;
+}
+
+.stepper-flow .step.step-current-path:not(:last-child) .step-marker::after {
+  animation: step-horizontal-flow 700ms linear infinite;
+}
+
+/* ===================== */
+/* ANIMATIONS            */
+/* ===================== */
+
+@keyframes step-horizontal-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--step-color) 35%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes step-horizontal-dot {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes step-horizontal-flow {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: 8px;
+  }
+}
+
+/* ===================== */
+/* SIZES                 */
+/* ===================== */
+
+.stepper-sm {
+  --step-size: 0.75rem;
+}
+
+.stepper-md {
+  --step-size: 1rem;
+}
+
+.stepper-lg {
+  --step-size: 1.5rem;
+}
+
+.stepper-xl {
+  --step-size: 2rem;
+}
+
+/* ===================== */
+/* COLORS                */
+/* ===================== */
+
+.stepper-success {
+  --step-color: var(--oc-success);
+}
+
+.stepper-warning {
+  --step-color: var(--oc-warning);
+}
+
+.stepper-error {
+  --step-color: var(--oc-error);
+}
+
+.stepper-fatal {
+  --step-color: var(--oc-fatal);
+}

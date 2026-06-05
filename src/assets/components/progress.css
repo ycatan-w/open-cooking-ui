@@ -1,0 +1,29 @@
+/* ===================== */
+/* PROGRES               */
+/* ===================== */
+.progress {
+  width: 100%;
+  height: 0.5rem;
+  overflow: hidden;
+  background: var(--oc-surface-hover);
+  border-radius: 9999px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--oc-violet);
+  transition: width 300ms ease;
+}
+
+.progress-brand .progress-bar {
+  background: var(--oc-gradient);
+}
+.progress-success .progress-bar {
+  background: var(--oc-success);
+}
+.progress-warning .progress-bar {
+  background: var(--oc-warning);
+}
+.progress-error .progress-bar {
+  background: var(--oc-error);
+}

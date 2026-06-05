@@ -1,0 +1,42 @@
+@import './components/input.css';
+@import './components/button.css';
+@import './components/heading.css';
+@import './components/card.css';
+@import './components/list.css';
+@import './components/progress.css';
+@import './components/stepper-horizontal.css';
+@import './components/stepper-vertical.css';
+@import './components/loader.css';
+@import './components/popover.css';
+
+.oc-logo-dot {
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 999px;
+  background: var(--oc-gradient);
+}
+
+/************/
+
+/* Table */
+
+.oc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oc-table th {
+  text-align: left;
+
+  color: var(--oc-text-muted);
+
+  padding: 0.75rem;
+
+  border-bottom: 1px solid var(--oc-border);
+}
+
+.oc-table td {
+  padding: 0.75rem;
+
+  border-bottom: 1px solid var(--oc-border-soft);
+}

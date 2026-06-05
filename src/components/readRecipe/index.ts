@@ -1,0 +1,6 @@
+export { default as AnnotationView } from './AnnotationView.vue'
+export { default as EquipmentView } from './EquipmentView.vue'
+export { default as MediaView } from './MediaView.vue'
+export { default as SourceView } from './SourceView.vue'
+export { default as IngredientView } from './IngredientView.vue'
+export { default as TechniqueView } from './TechniqueView.vue'

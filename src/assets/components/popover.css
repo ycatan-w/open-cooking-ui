@@ -1,0 +1,124 @@
+.oc-popover {
+  position: relative;
+  display: inline-flex;
+}
+
+.oc-popover-content {
+  position: absolute;
+  display: none;
+
+  padding: 0.75rem;
+  white-space: nowrap;
+
+  border-radius: 0.5rem;
+  border: 1px solid;
+  z-index: 100;
+}
+
+.oc-popover:hover .oc-popover-content {
+  display: block;
+}
+
+.oc-popover-right .oc-popover-content {
+  left: calc(100% + 0.75rem);
+  top: 50%;
+
+  transform: translateY(-50%);
+}
+
+.oc-popover-right .oc-popover-content::before {
+  content: '';
+
+  position: absolute;
+
+  left: -6px;
+  top: 50%;
+
+  width: 12px;
+  height: 12px;
+
+  transform: translateY(-50%) rotate(45deg);
+
+  background: inherit;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: inherit;
+}
+
+.oc-popover-left .oc-popover-content {
+  right: calc(100% + 0.75rem);
+  top: 50%;
+
+  transform: translateY(-50%);
+}
+
+.oc-popover-left .oc-popover-content::before {
+  content: '';
+
+  position: absolute;
+
+  right: -6px;
+  top: 50%;
+
+  width: 12px;
+  height: 12px;
+
+  transform: translateY(-50%) rotate(45deg);
+
+  background: inherit;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-color: inherit;
+}
+
+.oc-popover-top .oc-popover-content {
+  bottom: calc(100% + 0.75rem);
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.oc-popover-top .oc-popover-content::before {
+  content: '';
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -6px;
+
+  width: 12px;
+  height: 12px;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  background: inherit;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: inherit;
+}
+
+.oc-popover-bottom .oc-popover-content {
+  top: calc(100% + 0.75rem);
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.oc-popover-bottom .oc-popover-content::before {
+  content: '';
+
+  position: absolute;
+
+  left: 50%;
+  top: -6px;
+
+  width: 12px;
+  height: 12px;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  background: inherit;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-color: inherit;
+}

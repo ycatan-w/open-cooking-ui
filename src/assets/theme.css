@@ -1,0 +1,245 @@
+:root {
+  /* ===================== */
+  /* BRAND                 */
+  /* ===================== */
+
+  --oc-violet: rgb(139 92 246);
+  --oc-purple: rgb(168 85 247);
+  --oc-fuchsia: rgb(217 70 239);
+
+  --oc-gradient: linear-gradient(
+    90deg,
+    var(--oc-violet) 0%,
+    var(--oc-purple) 50%,
+    var(--oc-fuchsia) 100%
+  );
+
+  /* ===================== */
+  /* SURFACES              */
+  /* ===================== */
+
+  /* page */
+  --oc-background: #f5f7fb;
+
+  /* sidebar / header */
+  --oc-surface-1: #eef2f7;
+
+  /* cards */
+  --oc-surface-2: #ffffff;
+
+  /* hover */
+  --oc-surface-3: #f8fafc;
+
+  /* dropdown / modal */
+  --oc-surface-4: #ffffff;
+
+  /* aliases */
+  --oc-surface: var(--oc-surface-2);
+  --oc-surface-hover: var(--oc-surface-3);
+  --oc-surface-active: #e8edf3;
+  --oc-surface-elevated: var(--oc-surface-4);
+  --oc-surface-soft: #f8f8fa;
+
+  /* ===================== */
+  /* LAYOUT TOKENS         */
+  /* ===================== */
+
+  --oc-header-bg: var(--oc-surface-1);
+  --oc-sidebar-bg: var(--oc-surface-1);
+  --oc-main-bg: var(--oc-background);
+
+  --oc-card-bg: var(--oc-surface-2);
+  --oc-card-hover-bg: var(--oc-surface-3);
+
+  --oc-dropdown-bg: var(--oc-surface-4);
+  --oc-modal-bg: var(--oc-surface-4);
+
+  /* ===================== */
+  /* BORDERS               */
+  /* ===================== */
+
+  --oc-border: #dbe2ea;
+  --oc-border-soft: #e8edf3;
+  --oc-border-strong: #c5ced8;
+
+  --oc-border-focus: var(--oc-violet);
+
+  /* ===================== */
+  /* TEXT                  */
+  /* ===================== */
+
+  --oc-text: #0f172a;
+  --oc-text-muted: #475569;
+  --oc-text-subtle: #64748b;
+  --oc-text-inverse: #ffffff;
+
+  /* ===================== */
+  /* LINKS                 */
+  /* ===================== */
+
+  --oc-link: var(--oc-violet);
+  --oc-link-hover: var(--oc-fuchsia);
+
+  /* ===================== */
+  /* STATUS                */
+  /* ===================== */
+
+  /* SUCCESS */
+
+  --oc-success: #16a34a;
+  --oc-success-foreground: #14532d;
+  --oc-success-bg: #dcfce7;
+  --oc-success-border: #86efac;
+
+  /* WARNING */
+
+  --oc-warning: #f59e0b;
+  --oc-warning-foreground: #78350f;
+  --oc-warning-bg: #fef3c7;
+  --oc-warning-border: #fcd34d;
+
+  /* ERROR */
+
+  --oc-error: #ef4444;
+  --oc-error-foreground: #7f1d1d;
+  --oc-error-bg: #fee2e2;
+  --oc-error-border: #fca5a5;
+
+  /* FATAL */
+
+  --oc-fatal: #dc2626;
+  --oc-fatal-foreground: #450a0a;
+  --oc-fatal-bg: #fecaca;
+  --oc-fatal-border: #f87171;
+
+  /* ===================== */
+  /* SHADOWS               */
+  /* ===================== */
+
+  --oc-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
+
+  --oc-shadow: 0 8px 20px rgb(15 23 42 / 0.08), 0 2px 6px rgb(15 23 42 / 0.04);
+
+  --oc-shadow-lg: 0 20px 40px rgb(15 23 42 / 0.12), 0 8px 16px rgb(15 23 42 / 0.08);
+
+  /* ===================== */
+  /* OVERLAY               */
+  /* ===================== */
+
+  --oc-overlay: rgb(15 23 42 / 0.45);
+
+  /* ===================== */
+  /* RADIUS                */
+  /* ===================== */
+
+  --oc-radius-none: 0px;
+  --oc-radius-sm: 0.25rem;
+  --oc-radius-md: 0.5rem;
+  --oc-radius-lg: 0.75rem;
+  --oc-radius-xl: 1rem;
+  --oc-radius-full: 9999px;
+
+  /* ===================== */
+  /* SPACING               */
+  /* ===================== */
+
+  --oc-space-1: 0.25rem;
+  --oc-space-2: 0.5rem;
+  --oc-space-3: 0.75rem;
+  --oc-space-4: 1rem;
+}
+
+/* ===================== */
+/* DARK MODE             */
+/* ===================== */
+
+.dark {
+  /* ===================== */
+  /* SURFACES              */
+  /* ===================== */
+
+  --oc-background: #111827;
+
+  --oc-surface-1: #172131;
+  --oc-surface-2: #1f2937;
+  --oc-surface-3: #273449;
+  --oc-surface-4: #293548;
+
+  --oc-surface: var(--oc-surface-2);
+  --oc-surface-hover: var(--oc-surface-3);
+  --oc-surface-active: #324055;
+  --oc-surface-elevated: var(--oc-surface-4);
+  --oc-surface-soft: #232329;
+
+  /* ===================== */
+  /* LAYOUT TOKENS         */
+  /* ===================== */
+
+  --oc-header-bg: var(--oc-surface-1);
+  --oc-sidebar-bg: var(--oc-surface-1);
+  --oc-panel-bg: var(--oc-surface-2);
+  --oc-main-bg: var(--oc-background);
+
+  --oc-card-bg: var(--oc-surface-2);
+  --oc-card-hover-bg: var(--oc-surface-3);
+
+  --oc-dropdown-bg: var(--oc-surface-4);
+  --oc-modal-bg: var(--oc-surface-4);
+
+  /* ===================== */
+  /* BORDERS               */
+  /* ===================== */
+
+  --oc-border: #334155;
+  --oc-border-soft: #273449;
+  --oc-border-strong: #475569;
+
+  /* ===================== */
+  /* TEXT                  */
+  /* ===================== */
+
+  --oc-text: #f8fafc;
+  --oc-text-muted: #cbd5e1;
+  --oc-text-subtle: #94a3b8;
+  --oc-text-inverse: #111827;
+
+  /* ===================== */
+  /* STATUS                */
+  /* ===================== */
+
+  --oc-success: #22c55e;
+  --oc-success-foreground: #dcfce7;
+  --oc-success-bg: rgb(34 197 94 / 0.15);
+  --oc-success-border: #166534;
+
+  --oc-warning: #fbbf24;
+  --oc-warning-foreground: #fef3c7;
+  --oc-warning-bg: rgb(251 191 36 / 0.12);
+  --oc-warning-border: #92400e;
+
+  --oc-error: #f87171;
+  --oc-error-foreground: #fee2e2;
+  --oc-error-bg: rgb(248 113 113 / 0.12);
+  --oc-error-border: #7f1d1d;
+
+  --oc-fatal: #ef4444;
+  --oc-fatal-foreground: #fecaca;
+  --oc-fatal-bg: rgb(239 68 68 / 0.15);
+  --oc-fatal-border: #991b1b;
+
+  /* ===================== */
+  /* SHADOWS               */
+  /* ===================== */
+
+  --oc-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.25);
+
+  --oc-shadow: 0 10px 30px rgb(0 0 0 / 0.35), 0 4px 10px rgb(0 0 0 / 0.2);
+
+  --oc-shadow-lg: 0 25px 50px rgb(0 0 0 / 0.45), 0 12px 24px rgb(0 0 0 / 0.3);
+
+  /* ===================== */
+  /* OVERLAY               */
+  /* ===================== */
+
+  --oc-overlay: rgb(0 0 0 / 0.65);
+}

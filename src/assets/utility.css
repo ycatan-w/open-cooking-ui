@@ -1,0 +1,479 @@
+/* ===================== */
+/* TEXT                  */
+/* ===================== */
+
+.text-default {
+  color: var(--oc-text);
+}
+
+.text-muted {
+  color: var(--oc-text-muted);
+}
+
+.text-subtle {
+  color: var(--oc-text-subtle);
+}
+
+.text-inverse {
+  color: var(--oc-text-inverse);
+}
+
+.text-success {
+  color: var(--oc-success);
+}
+
+.text-warning {
+  color: var(--oc-warning);
+}
+
+.text-error {
+  color: var(--oc-error);
+}
+
+.text-fatal {
+  color: var(--oc-fatal);
+}
+
+/* ===================== */
+/* BACKGROUNDS           */
+/* ===================== */
+
+.bg-page {
+  background-color: var(--oc-background);
+}
+
+.bg-surface,
+.bg-panel {
+  background-color: var(--oc-surface);
+}
+
+.bg-sidebar {
+  background-color: var(--oc-sidebar-bg);
+}
+
+.bg-header {
+  background-color: var(--oc-header-bg);
+}
+
+.bg-hover,
+.bg-surface-hover {
+  background-color: var(--oc-surface-hover);
+}
+
+.bg-active,
+.bg-surface-active {
+  background-color: var(--oc-surface-active);
+}
+
+.bg-elevated,
+.bg-surface-elevated {
+  background-color: var(--oc-surface-elevated);
+}
+
+.bg-soft,
+.bg-surface-soft {
+  background-color: var(--oc-surface-soft);
+}
+
+/* ===================== */
+/* BRAND TEXT            */
+/* ===================== */
+
+.text-brand {
+  background: var(--oc-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-brand-muted {
+  color: color-mix(in srgb, var(--oc-violet) 60%, var(--oc-text-muted));
+}
+
+.text-brand-soft {
+  color: color-mix(in srgb, var(--oc-violet) 25%, var(--oc-text));
+}
+
+.text-brand-violet {
+  color: var(--oc-violet);
+}
+
+.text-brand-purple {
+  color: var(--oc-purple);
+}
+
+.text-brand-fuchsia {
+  color: var(--oc-fuchsia);
+}
+
+.text-brand-violet:hover {
+  color: color-mix(in srgb, var(--oc-violet) 80%, black);
+}
+
+.text-brand-purple:hover {
+  color: color-mix(in srgb, var(--oc-purple) 80%, black);
+}
+
+.text-brand-fuchsia:hover {
+  color: color-mix(in srgb, var(--oc-fuchsia) 80%, black);
+}
+
+/* ===================== */
+/* BRAND BACKGROUNDS     */
+/* ===================== */
+
+.bg-brand {
+  background: var(--oc-gradient);
+}
+
+.bg-brand-violet {
+  background-color: var(--oc-violet);
+}
+
+.bg-brand-purple {
+  background-color: var(--oc-purple);
+}
+
+.bg-brand-fuchsia {
+  background-color: var(--oc-fuchsia);
+}
+
+/* ===================== */
+/* BORDERS               */
+/* ===================== */
+
+.border-default {
+  border-color: var(--oc-border);
+}
+
+.border-soft {
+  border-color: var(--oc-border-soft);
+}
+
+.border-strong {
+  border-color: var(--oc-border-strong);
+}
+
+.border-focus {
+  border-color: var(--oc-border-focus);
+}
+
+.border-success {
+  border-color: var(--oc-success-border);
+}
+
+.border-warning {
+  border-color: var(--oc-warning-border);
+}
+
+.border-error {
+  border-color: var(--oc-error-border);
+}
+
+.border-fatal {
+  border-color: var(--oc-fatal-border);
+}
+
+/* ===================== */
+/* LINKS                 */
+/* ===================== */
+
+.link {
+  color: var(--oc-link);
+  transition: color 150ms ease;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--oc-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-external {
+  color: var(--oc-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-style: dotted;
+}
+
+.link-external:hover {
+  color: var(--oc-link-hover);
+}
+
+.link-external::after {
+  content: '↗';
+  margin-left: 0.25rem;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.link-reference {
+  color: var(--oc-purple);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--oc-purple);
+  transition: 150ms ease;
+}
+
+.link-reference:hover {
+  color: var(--oc-fuchsia);
+  border-bottom-color: var(--oc-fuchsia);
+}
+
+.link-sub-recipe,
+.link-ref {
+  color: var(--oc-text-muted);
+  font-size: 0.9em;
+  text-decoration: none;
+  position: relative;
+}
+
+.link-sub-recipe:hover,
+.link-ref:hover {
+  color: var(--oc-text);
+}
+
+.link-ref::before {
+  content: '[ ';
+  opacity: 0.5;
+}
+
+.link-ref::after {
+  content: ' ]';
+  opacity: 0.5;
+}
+
+.link-sub-recipe::after {
+  content: '↗';
+  margin-left: 0.25rem;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.link-brand {
+  color: var(--oc-violet);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link-brand:hover {
+  color: var(--oc-fuchsia);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-disabled {
+  color: var(--oc-text-subtle);
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.link-inline {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--oc-border-strong);
+  text-underline-offset: 2px;
+}
+
+.link-inline:hover {
+  color: var(--oc-link);
+  text-decoration-color: var(--oc-link);
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--oc-border-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+
+.link-underline:hover {
+  text-decoration-color: var(--oc-link);
+}
+
+.link-underline-subtle {
+  text-decoration: underline;
+  text-decoration-color: var(--oc-border);
+  text-underline-offset: 2px;
+}
+
+.link-underline-subtle:hover {
+  text-decoration-color: var(--oc-text-muted);
+}
+
+.link-underline-hover {
+  text-decoration: none;
+}
+
+.link-underline-hover:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-underline.link-brand {
+  text-decoration-color: var(--oc-violet);
+}
+
+.link-underline.link-brand:hover {
+  text-decoration-color: var(--oc-fuchsia);
+}
+
+.link-nav {
+  text-decoration: none;
+}
+
+.link-nav:hover {
+  color: var(--oc-purple);
+}
+
+/* ===================== */
+/* STATES                */
+/* ===================== */
+
+.hover-surface:hover {
+  background-color: var(--oc-surface-hover);
+}
+
+.active-surface:active {
+  background-color: var(--oc-surface-active);
+}
+
+.focus-ring {
+  outline: 2px solid var(--oc-border-focus);
+  outline-offset: 2px;
+}
+
+/* ===================== */
+/* STATUS SURFACES       */
+/* ===================== */
+
+.bg-success-soft {
+  background-color: var(--oc-success-bg);
+  color: var(--oc-success-foreground);
+}
+
+.bg-warning-soft {
+  background-color: var(--oc-warning-bg);
+  color: var(--oc-warning-foreground);
+}
+
+.bg-error-soft {
+  background-color: var(--oc-error-bg);
+  color: var(--oc-error-foreground);
+}
+
+.bg-fatal-soft {
+  background-color: var(--oc-fatal-bg);
+  color: var(--oc-fatal-foreground);
+}
+
+/* ===================== */
+/* STATUS OUTLINES       */
+/* ===================== */
+
+.outline-success {
+  outline: 1px solid var(--oc-success-border);
+}
+
+.outline-warning {
+  outline: 1px solid var(--oc-warning-border);
+}
+
+.outline-error {
+  outline: 1px solid var(--oc-error-border);
+}
+
+.outline-fatal {
+  outline: 1px solid var(--oc-fatal-border);
+}
+
+/* ===================== */
+/* DIVIDERS              */
+/* ===================== */
+
+.divider {
+  border-top: 1px solid var(--oc-border);
+}
+
+.divider-soft {
+  border-top: 1px solid var(--oc-border-soft);
+}
+
+.divider-strong {
+  border-top: 1px solid var(--oc-border-strong);
+}
+
+/* ===================== */
+/* SHADOWS               */
+/* ===================== */
+
+.shadow-sm {
+  box-shadow: var(--oc-shadow-sm);
+}
+
+.shadow {
+  box-shadow: var(--oc-shadow);
+}
+
+.shadow-lg {
+  box-shadow: var(--oc-shadow-lg);
+}
+
+/* ===================== */
+/* RADII                 */
+/* ===================== */
+
+.oc-rounded-none {
+  border-radius: var(--oc-radius-none);
+}
+
+.oc-rounded-sm {
+  border-radius: var(--oc-radius-sm);
+}
+
+.oc-rounded {
+  border-radius: var(--oc-radius-md);
+}
+
+.oc-rounded-lg {
+  border-radius: var(--oc-radius-lg);
+}
+
+.oc-rounded-xl {
+  border-radius: var(--oc-radius-xl);
+}
+
+.oc-rounded-full {
+  border-radius: var(--oc-radius-full);
+}
+
+/* ===================== */
+/* SURFACE COMPONENTS    */
+/* ===================== */
+
+.sidebar {
+  background: var(--oc-sidebar-bg);
+}
+
+.header {
+  background: var(--oc-header-bg);
+  border-bottom: 1px solid var(--oc-border);
+}
+
+.panel {
+  background: var(--oc-panel-bg);
+  border: 1px solid var(--oc-border);
+}
+
+.section {
+  background: var(--oc-surface);
+}
+
+/* ===================== */
+/* SELECTION             */
+/* ===================== */
+
+::selection {
+  background: color-mix(in srgb, var(--oc-violet) 30%, transparent);
+}

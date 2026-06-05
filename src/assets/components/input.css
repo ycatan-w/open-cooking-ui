@@ -1,0 +1,253 @@
+/* ===================== */
+/* INPUT                 */
+/* ===================== */
+.oc-input {
+  --input-bg: var(--oc-surface);
+  --input-bg-hover: var(--oc-surface-hover);
+  --input-border: var(--oc-border);
+  --input-focus: var(--oc-violet);
+  --input-text: var(--oc-text);
+  --input-placeholder: var(--oc-text-subtle);
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  color: var(--input-text);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--oc-radius-md);
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.oc-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.oc-input:hover:not(:disabled) {
+  background-color: var(--input-bg-hover);
+}
+
+.oc-input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 15%, transparent);
+}
+
+.oc-input-success {
+  --input-border: var(--oc-success-border);
+  --input-focus: var(--oc-success);
+}
+
+.oc-input-warning {
+  --input-border: var(--oc-warning-border);
+  --input-focus: var(--oc-warning);
+}
+
+.oc-input-error {
+  --input-border: var(--oc-error-border);
+  --input-focus: var(--oc-error);
+}
+
+.oc-input-fatal {
+  --input-border: var(--oc-fatal-border);
+  --input-focus: var(--oc-fatal);
+}
+
+.oc-input:disabled {
+  cursor: not-allowed;
+  color: var(--oc-text-subtle);
+  background-color: var(--oc-surface-hover);
+  opacity: 0.75;
+}
+
+.oc-input[readonly] {
+  background-color: var(--oc-surface-hover);
+}
+
+.oc-input-sm {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.oc-input-lg {
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+}
+
+/* ===================== */
+/* INPUT GROUP           */
+/* ===================== */
+.oc-input-group {
+  --input-border: var(--oc-border);
+  --input-focus: var(--oc-violet);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  background-color: var(--oc-surface);
+  border: 1px solid var(--input-border);
+  border-radius: var(--oc-radius-md);
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.oc-input-group:hover {
+  background-color: var(--oc-surface-hover);
+}
+
+.oc-input-group:focus-within {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 15%, transparent);
+}
+
+.oc-input-group input {
+  flex: 1;
+  color: var(--oc-text);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.oc-input-group input::placeholder {
+  color: var(--oc-text-subtle);
+}
+
+.oc-input-group svg {
+  color: var(--oc-text-muted);
+  flex-shrink: 0;
+}
+
+.oc-input-group-success {
+  --input-border: var(--oc-success-border);
+  --input-focus: var(--oc-success);
+}
+
+.oc-input-group-warning {
+  --input-border: var(--oc-warning-border);
+  --input-focus: var(--oc-warning);
+}
+
+.oc-input-group-error {
+  --input-border: var(--oc-error-border);
+  --input-focus: var(--oc-error);
+}
+
+.oc-input-group-fatal {
+  --input-border: var(--oc-fatal-border);
+  --input-focus: var(--oc-fatal);
+}
+
+/* ===================== */
+/* INPUT FLOATING        */
+/* ===================== */
+.oc-input-floating {
+  --input-height: 2.75rem;
+
+  --input-border: var(--oc-border);
+  --input-focus: var(--oc-violet);
+  position: relative;
+}
+
+.oc-input-floating-sm {
+  --input-height: 2.25rem;
+}
+
+.oc-input-floating-md {
+  --input-height: 2.75rem;
+}
+
+.oc-input-floating-lg {
+  --input-height: 3.25rem;
+}
+
+.oc-input-floating input {
+  width: 100%;
+  height: var(--input-height);
+  padding: 1rem 0.875rem 0.25rem;
+  color: var(--oc-text);
+  background: var(--oc-surface);
+  border: 1px solid var(--input-border);
+  border-radius: var(--oc-radius-md);
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.oc-input-floating label {
+  position: absolute;
+  top: 50%;
+  left: 0.875rem;
+  color: var(--oc-text-muted);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition:
+    color 150ms ease,
+    top 150ms ease,
+    font-size 150ms ease,
+    transform 150ms ease;
+}
+
+.oc-input-floating input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 15%, transparent);
+}
+
+.oc-input-floating input:focus + label,
+.oc-input-floating input:not(:placeholder-shown) + label {
+  top: 0.1rem;
+  font-size: 0.7rem;
+  color: var(--input-focus);
+  transform: none;
+}
+
+.oc-input-floating-success {
+  --input-border: var(--oc-success-border);
+  --input-focus: var(--oc-success);
+}
+
+.oc-input-floating-warning {
+  --input-border: var(--oc-warning-border);
+  --input-focus: var(--oc-warning);
+}
+
+.oc-input-floating-error {
+  --input-border: var(--oc-error-border);
+  --input-focus: var(--oc-error);
+}
+
+.oc-input-floating-fatal {
+  --input-border: var(--oc-fatal-border);
+  --input-focus: var(--oc-fatal);
+}
+
+/* ===================== */
+/* INPUT FLOATING ICON   */
+/* ===================== */
+
+.oc-input-floating-icon .oc-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.875rem;
+  width: 1rem;
+  height: 1rem;
+  color: var(--oc-text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: color 150ms ease;
+}
+
+.oc-input-floating-icon input {
+  padding-left: 2.75rem;
+}
+
+.oc-input-floating-icon label {
+  left: 2.75rem;
+}
+
+.oc-input-floating-icon:focus-within .oc-input-icon {
+  color: var(--input-focus);
+}

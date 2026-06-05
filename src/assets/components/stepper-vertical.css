@@ -1,0 +1,240 @@
+/* ===================== */
+/* STEPPER VERTICAL      */
+/* ===================== */
+.stepper-vertical {
+  /* recommended */
+  /* --step-default-w: 6 */
+  /* --step-default-h: 30 */
+  --step-default-w: 1;
+  --step-default-h: 1;
+
+  --step-indicator-width: calc(var(--spacing) * var(--step-default-w));
+  --step-indicator-height: calc(var(--spacing) * var(--step-default-h));
+  --step-line-width: calc(var(--step-indicator-width) * 0.15);
+  --step-line-height: calc(var(--step-indicator-height) * 2);
+  --step-dash-size: calc(var(--step-line-height) * 0.04);
+  --step-gap-size: calc(var(--step-line-height) * 0.01);
+  --step-backgroup: var(--oc-surface);
+  --step-backgroup-current: var(--oc-violet);
+  --step-backgroup-pending: var(--oc-border);
+  --step-color: var(--oc-violet);
+  --step-color-current: var(--oc-violet);
+  --step-color-pending: var(--oc-border);
+  --step-line-color: var(--oc-border);
+  --step-connector-height: calc(var(--step-indicator-height) - var(--step-indicator-width));
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sv-h-fixed {
+  height: var(--step-indicator-height);
+  overflow: hidden;
+}
+
+.sv-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.sv-step.sv-step-top .sv-step-indicator {
+  height: var(--step-indicator-width);
+}
+
+.sv-step.sv-step-bottom {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--step-color-pending),
+    var(--step-color-pending) var(--step-dash-size),
+    transparent var(--step-dash-size),
+    transparent calc(var(--step-dash-size) + var(--step-gap-size))
+  );
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: var(--step-line-width)
+    calc(var(--step-indicator-height) - var(--step-indicator-width));
+  align-items: flex-end;
+}
+
+.sv-step.sv-current.sv-step-bottom {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--step-color-current),
+    var(--step-color-current) var(--step-dash-size),
+    transparent var(--step-dash-size),
+    transparent calc(var(--step-dash-size) + var(--step-gap-size))
+  );
+}
+
+.sv-step.sv-completed.sv-step-bottom {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--step-color-current),
+    var(--step-color-current) calc(var(--step-dash-size) * 2),
+    transparent var(--step-dash-size),
+    transparent calc(var(--step-dash-size) + var(--step-gap-size))
+  );
+}
+
+.sv-step .sv-step-indicator {
+  position: relative;
+  width: var(--step-indicator-width);
+  height: var(--step-indicator-height);
+  flex-shrink: 0;
+}
+
+.sv-step:not(.sv-step.sv-step-top) .sv-step-indicator::before {
+  top: calc(var(--step-indicator-height) - var(--step-indicator-width));
+}
+
+.sv-step .sv-step-indicator::before {
+  content: '';
+  position: absolute;
+  width: var(--step-indicator-width);
+  height: var(--step-indicator-width);
+  border-radius: 9999px;
+  border: var(--step-line-width) solid var(--step-color-pending);
+}
+
+.sv-step.sv-current .sv-step-indicator::before {
+  border-color: var(--step-backgroup-current);
+}
+
+.sv-step.sv-step-top .sv-step-indicator::after {
+  top: calc(var(--step-indicator-width) / 4);
+}
+
+.sv-step.sv-current:not(.sv-step.sv-step-top) .sv-step-indicator::after {
+  top: calc(var(--step-indicator-height) - calc(calc(var(--step-indicator-width) / 4) * 3));
+}
+
+.sv-step.sv-current .sv-step-indicator::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--step-indicator-width) / 4);
+  width: calc(var(--step-indicator-width) * 0.5);
+  height: calc(var(--step-indicator-width) * 0.5);
+  border-radius: 9999px;
+  background: var(--step-backgroup-current);
+}
+
+.sv-step.sv-completed .sv-step-indicator::before {
+  border-color: var(--step-backgroup-current);
+  background: var(--step-backgroup-current);
+}
+
+.sv-step-content {
+  position: absolute;
+  left: calc(var(--step-indicator-width) + 1rem);
+  white-space: nowrap;
+}
+
+.sv-step-title {
+  color: var(--oc-text);
+  font-weight: 600;
+}
+
+.sv-step-description {
+  color: var(--oc-text-muted);
+  font-size: 0.875rem;
+}
+
+.sv-step-label {
+  color: var(--oc-text);
+  position: absolute;
+
+  left: calc(var(--step-indicator-width) + 1rem);
+
+  white-space: nowrap;
+}
+
+.stepper-vertical.sv-animated .sv-step-flow {
+  position: absolute;
+  width: var(--step-line-width);
+  pointer-events: none;
+}
+
+.stepper-vertical.sv-animated .sv-step-flow::before {
+  content: '';
+  position: absolute;
+  left: calc(calc(var(--step-indicator-width) / 2) - var(--step-line-width));
+  width: calc(var(--step-line-width) * 2);
+  height: calc(var(--step-dash-size) * 2);
+  border-radius: 9999px;
+  background: var(--step-color);
+  opacity: 0;
+  box-shadow:
+    0 0 6px color-mix(in srgb, var(--step-color) 75%, transparent),
+    0 0 12px color-mix(in srgb, var(--step-color) 50%, transparent);
+}
+
+.stepper-vertical.sv-animated .sv-step.sv-current .sv-step-indicator::before {
+  animation: step-pulse 2s infinite;
+}
+.stepper-vertical.sv-animated .sv-step.sv-current .sv-step-indicator::after {
+  animation: step-dot 1.2s ease-in-out infinite;
+}
+
+.stepper-vertical.sv-animated .sv-step.sv-current:not(.sv-step.sv-step-top) .sv-step-flow::before {
+  animation: step-flow-stream 1.8s linear infinite;
+}
+
+@keyframes step-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--step-color) 100%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 calc(var(--step-indicator-width) * 0.4) transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes step-pulse-a {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes step-dot {
+  0%,
+  100% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes step-flow-stream {
+  0% {
+    opacity: 0;
+    transform: translateY(calc(var(--step-dash-size) * -1));
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(calc(var(--step-connector-height) - calc(var(--step-dash-size) * 2)));
+  }
+}

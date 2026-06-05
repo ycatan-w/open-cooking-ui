@@ -1,0 +1,185 @@
+/* ===================== */
+/* CARD                  */
+/* ===================== */
+
+.card {
+  background: var(--oc-card-bg);
+  border: 1px solid var(--oc-border);
+  box-shadow: var(--oc-shadow-sm);
+}
+
+.card-rounded {
+  border-radius: var(--oc-radius-lg);
+}
+
+.card-flat {
+  background: transparent;
+  border: 1px solid var(--oc-border-soft);
+}
+
+.card-elevated {
+  background: var(--oc-surface-elevated);
+  border: 1px solid var(--oc-border);
+  box-shadow: var(--oc-shadow);
+}
+
+.card-soft {
+  background: var(--oc-surface-soft);
+  border: 1px solid var(--oc-border-soft);
+}
+
+/* ===================== */
+/* INTERACTIVE           */
+/* ===================== */
+
+.card-interactive {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.card-interactive:hover {
+  background: var(--oc-surface-hover);
+  border-color: var(--oc-border-strong);
+  box-shadow: var(--oc-shadow);
+  transform: translateY(-1px);
+}
+
+.card-interactive:active {
+  background: var(--oc-surface-active);
+}
+
+/* ===================== */
+/* ACCENT                */
+/* ===================== */
+
+.card-accent {
+  position: relative;
+  border-left: 0;
+}
+
+.card-accent::before {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 4px;
+
+  background: var(--oc-gradient);
+}
+
+/* ===================== */
+/* BRAND BORDER          */
+/* ===================== */
+
+.card-brand {
+  position: relative;
+  background: var(--oc-card-bg);
+}
+
+.card-brand::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  padding: 1px;
+
+  border-radius: inherit;
+
+  background: var(--oc-gradient);
+
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+/* ===================== */
+/* STATUS                */
+/* ===================== */
+
+.card-success {
+  background: var(--oc-success-bg);
+  border: 1px solid var(--oc-success-border);
+  color: var(--oc-success-foreground);
+}
+
+.card-warning {
+  background: var(--oc-warning-bg);
+  border: 1px solid var(--oc-warning-border);
+  color: var(--oc-warning-foreground);
+}
+
+.card-error {
+  background: var(--oc-error-bg);
+  border: 1px solid var(--oc-error-border);
+  color: var(--oc-error-foreground);
+}
+
+.card-fatal {
+  background: var(--oc-fatal-bg);
+  border: 1px solid var(--oc-fatal-border);
+  color: var(--oc-fatal-foreground);
+}
+
+/* ===================== */
+/* GLASS                 */
+/* ===================== */
+
+.card-glass {
+  background: color-mix(in srgb, var(--oc-card-bg) 75%, transparent);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid var(--oc-border);
+}
+
+/* ===================== */
+/* SECTIONS              */
+/* ===================== */
+
+.card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--oc-border);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--oc-border);
+}
+
+/* ===================== */
+/* TYPOGRAPHY            */
+/* ===================== */
+
+.card-title {
+  color: var(--oc-text);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.card-description {
+  margin-top: 0.25rem;
+
+  color: var(--oc-text-muted);
+  font-size: 0.875rem;
+}

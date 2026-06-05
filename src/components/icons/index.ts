@@ -1,0 +1,7 @@
+export { default as 'IconArrowUpTray' } from './IconArrowUpTray.vue'
+export { default as 'IconChevronDown' } from './IconChevronDown.vue'
+export { default as 'IconDocument' } from './IconDocument.vue'
+export { default as 'IconLink' } from './IconLink.vue'
+export { default as 'IconMagnifyingGlass' } from './IconMagnifyingGlass.vue'
+export { default as 'IconMoon' } from './IconMoon.vue'
+export { default as 'IconSun' } from './IconSun.vue'

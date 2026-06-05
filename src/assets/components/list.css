@@ -1,0 +1,196 @@
+/* ===================== */
+/* LIST                  */
+/* ===================== */
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-item {
+  padding: 0.75rem 1rem;
+  color: var(--oc-text);
+}
+
+.list-bordered {
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-lg);
+  overflow: hidden;
+}
+
+.list-bordered .list-item:not(:last-child) {
+  border-bottom: 1px solid var(--oc-border);
+}
+
+.list-hover .list-item {
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.list-hover .list-item:hover {
+  background: var(--oc-surface-hover);
+}
+
+.list-interactive .list-item {
+  cursor: pointer;
+}
+
+.list-interactive .list-item:hover {
+  background: var(--oc-surface-hover);
+}
+
+.list-item.is-active {
+  color: var(--oc-violet);
+  background: color-mix(in srgb, var(--oc-violet) 10%, transparent);
+}
+
+.list-item.is-selected {
+  background: color-mix(in srgb, var(--oc-violet) 15%, transparent);
+  border-left: 3px solid var(--oc-violet);
+}
+
+.list-compact .list-item {
+  padding: 0.5rem 0.75rem;
+}
+
+.list-spacious .list-item {
+  padding: 1rem 1.25rem;
+}
+
+.list-soft .list-item:hover {
+  background: color-mix(in srgb, var(--oc-surface-hover) 60%, transparent);
+}
+
+.list-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.list-cards .list-item {
+  background: var(--oc-surface);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-md);
+}
+
+.list-nav .list-item {
+  border-radius: var(--oc-radius-md);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.list-nav .list-item:hover {
+  background: var(--oc-surface-hover);
+}
+
+.list-nav .list-item.is-active {
+  color: var(--oc-violet);
+  background: color-mix(in srgb, var(--oc-violet) 10%, transparent);
+}
+
+.list-numbered {
+  counter-reset: item;
+}
+
+.list-numbered .list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  counter-increment: item;
+}
+
+.list-numbered .list-item::before {
+  content: counter(item);
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--oc-radius-full);
+  background: var(--oc-surface-hover);
+  color: var(--oc-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.list-numbered .list-item::before {
+  content: counter(item);
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--oc-radius-full);
+  background: var(--oc-surface-hover);
+  color: var(--oc-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.list-numbered-brand .list-item::before {
+  background: var(--oc-gradient);
+  color: white;
+}
+
+.list-bullets .list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.list-bullets .list-item::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.45rem;
+  border-radius: var(--oc-radius-full);
+  background: var(--oc-violet);
+  flex-shrink: 0;
+}
+
+.list-check .list-item {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.list-check .list-item::before {
+  content: '✓';
+  color: var(--oc-success);
+  font-weight: 700;
+}
+
+.list-timeline {
+  position: relative;
+}
+
+.list-timeline .list-item {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.list-timeline .list-item::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 1.1rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: var(--oc-violet);
+}
+
+.list-timeline .list-item::after {
+  content: '';
+  position: absolute;
+  left: 0.84rem;
+  top: 1.85rem;
+  bottom: -1rem;
+  width: 2px;
+  background: var(--oc-border);
+}
+
+.list-timeline .list-item:last-child::after {
+  display: none;
+}
