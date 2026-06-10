@@ -82,4 +82,4 @@ These values are restored automatically when reopening the application.
 
 ## License
 
-TBD
+See [LICENSE](./LICENSE)
