@@ -1,7 +1,7 @@
 import '@/assets/styles/main.css'
 
 import { createApp } from 'vue'
-import { vClickOutside } from '@/directives'
+import { vClickOutside } from '@/directives/ClickOutsideDirective.ts'
 import App from './App.vue'
 // import router from './router.ts'
 import router from '@/router'
