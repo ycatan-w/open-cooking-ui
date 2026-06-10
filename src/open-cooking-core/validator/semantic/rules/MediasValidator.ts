@@ -14,7 +14,7 @@ export class MediasValidator implements ValidatorInterface<OCSMediaObject> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.type || ''} invalid media category`,
+          message: `"${document.type}" is not a valid media type.`,
         }),
       )
     }
@@ -23,7 +23,7 @@ export class MediasValidator implements ValidatorInterface<OCSMediaObject> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'media url cannot be empty',
+          message: 'Media URL should not be empty.',
         }),
       )
     }

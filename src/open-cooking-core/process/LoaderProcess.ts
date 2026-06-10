@@ -17,7 +17,7 @@ export class LoaderProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         LoaderProcess.error({
           code: LoaderDiagnosticCode.LOADER_UNDEFINED_INPUT,
-          message: 'Input must be defined',
+          message: 'No input source was provided.',
         }),
       )
       job.status = 'fail'
@@ -37,7 +37,7 @@ export class LoaderProcess extends AbstractProcess {
           context.diagnosticsCollector.collect(
             LoaderProcess.fatal({
               code: LoaderDiagnosticCode.LOADER_FETCH_FAILURE,
-              message: 'fetch failure',
+              message: 'Failed to load the specification document.',
             }),
           )
           job.status = 'fail'

@@ -62,7 +62,7 @@ export class ProcessFlow {
             Diagnostic.fatal({
               category: DiagnosticCategory.INTERNAL,
               code: InternalDiagnosticCode.INTERNAL_PROCESS_FAILURE,
-              message: 'fail to execute instruction',
+              message: 'An unexpected error occurred while executing the processing pipeline.',
             }),
           )
         }
@@ -76,7 +76,6 @@ export class ProcessFlow {
         }),
       )
       if (!this.jobIsComplete(job)) {
-        console.error(context.diagnosticsCollector)
         break
       }
     }
@@ -92,7 +91,7 @@ export class ProcessFlow {
       metadata: {
         format: context.storage.format || null,
       },
-      diagnostics: context.diagnosticsCollector.get(),
+      diagnostics: context.diagnosticsCollector,
     }
   }
 

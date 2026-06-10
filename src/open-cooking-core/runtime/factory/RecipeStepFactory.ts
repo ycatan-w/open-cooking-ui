@@ -4,7 +4,26 @@ import type { RuntimeContext } from '../'
 import { RecipeStep } from '../objects'
 
 export class RecipeStepFactory extends RuntimeObjectFactory {
+  static createWithId(
+    id: string,
+    source: OCSProcedureStepObject & {
+      __durationSecond: number
+    },
+    context: RuntimeContext,
+  ) {
+    return RecipeStepFactory.createCommonBuilder(source, context).withId(id).build()
+  }
+
   static create(
+    source: OCSProcedureStepObject & {
+      __durationSecond: number
+    },
+    context: RuntimeContext,
+  ) {
+    return RecipeStepFactory.createCommonBuilder(source, context).build()
+  }
+
+  private static createCommonBuilder(
     source: OCSProcedureStepObject & {
       __durationSecond: number
     },
@@ -22,10 +41,19 @@ export class RecipeStepFactory extends RuntimeObjectFactory {
           : TechniqueFactory.createInline(t, context),
       )
     })
+    ;(source.subSteps || []).forEach((s) => {
+      builder.addSubStep(
+        RecipeStepFactory.create(
+          s as OCSProcedureStepObject & {
+            __durationSecond: number
+          },
+          context,
+        ),
+      )
+    })
     RuntimeObjectFactory.buildAnnotations(builder, source.annotations)
     RuntimeObjectFactory.buildMedias(builder, source.media)
-
-    return builder.build()
+    return builder
   }
 
   private static isTechniqueReference(

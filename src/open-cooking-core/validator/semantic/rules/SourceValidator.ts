@@ -11,7 +11,7 @@ export class SourceValidator implements ValidatorInterface<OCSSourceObject> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'Source name is empty',
+          message: 'Source name should not be empty.',
         }),
       )
     }

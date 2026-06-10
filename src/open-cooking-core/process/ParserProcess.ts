@@ -22,7 +22,7 @@ export class ParserProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         ParserProcess.error({
           code: ParserDiagnosticCode.PARSER_UNDEFINED_SOURCE,
-          message: 'raw no defined',
+          message: 'No raw source content was provided for parsing.',
         }),
       )
       return
@@ -32,6 +32,9 @@ export class ParserProcess extends AbstractProcess {
       const trimmed = input.source.trim()
       context.storage.format = trimmed.startsWith('{') || trimmed.startsWith('[') ? 'json' : 'yaml'
       job.output = this.parseContent(context.storage.format, trimmed)
+      if (typeof job.output === 'string') {
+        throw 'Parsed content is string'
+      }
       job.status = 'complete'
     } catch {
       job.status = 'fail'
@@ -39,7 +42,7 @@ export class ParserProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         ParserProcess.fatal({
           code: ParserDiagnosticCode.PARSER_INVALID_SYNTAX,
-          message: 'parse failure',
+          message: 'Failed to parse the specification document.',
         }),
       )
     }

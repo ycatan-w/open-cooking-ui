@@ -11,7 +11,7 @@ export class RootValidator implements ValidatorInterface<OCSDocument> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_DOCUMENT_VERSION,
-          message: 'invalid OCS version',
+          message: 'The document uses an unsupported OCS version.',
         }),
       )
     }
@@ -20,7 +20,7 @@ export class RootValidator implements ValidatorInterface<OCSDocument> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_MISSING_RECIPES,
-          message: 'No recipe was defined',
+          message: 'At least one recipe must be defined in the specification.',
         }),
       )
     }

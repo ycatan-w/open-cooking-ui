@@ -3,6 +3,9 @@ import type { OpenCookingOutput } from '@/open-cooking-core/types'
 import { FileLoader, type FileDescriptor } from './FileLoader'
 import { EventListener } from './EventListener'
 import { ref, type Ref } from 'vue'
+import { useDocumentStore } from '@/stores/document.store'
+const documentStore = useDocumentStore()
+import { localStorageService } from '@/services/LocalStorageService'
 
 class OpenCookingManager {
   loadedSpec: Ref<OpenCookingOutput | undefined> = ref()
@@ -20,7 +23,7 @@ class OpenCookingManager {
     return this.hasLoadedSpec() && this.loadedSpec.value?.data !== null
   }
 
-  init() {
+  async init() {
     if (this.isInit) {
       return
     }
@@ -29,26 +32,33 @@ class OpenCookingManager {
     this.processor.addListener('process-flow:end', (e) => this.eventListener.onEndFlow(e))
     this.processor.addListener('process:start', (e) => this.eventListener.onStartProcess(e))
     this.processor.addListener('process:end', (e) => this.eventListener.onEndProcess(e))
-
-    const spec = this.specs[0]
-    if (spec === undefined || spec.id === undefined) {
-      console.log('cannot load spec')
-      return
-    }
-
-    this.loadUrl(spec.id)
   }
-  async loadUrl(url: string) {
+  async loadUrl(spec: FileDescriptor) {
     this.cancel()
 
     this.controller = new AbortController()
     this.loadedSpec.value = undefined
+    documentStore.spec.value = spec
+    localStorageService.set('spec', spec)
+    // localStorageService.set('recipeId', null)
 
     this.loadedSpec.value = await this.processor.run({
       type: 'url',
-      content: url,
+      content: spec.id,
       signal: this.controller.signal,
     })
+    if (!this.loadedSpecIsValid()) {
+      return
+    }
+    const recipe =
+      documentStore.recipeId.value !== null
+        ? this.loadedSpec.value.data?.findRecipe(documentStore.recipeId.value)
+        : undefined
+    if (recipe === undefined) {
+      documentStore.recipeId.value =
+        this.loadedSpec.value.data?.recipes.findAll().values().next().value?.id || null
+      localStorageService.set('recipeId', documentStore.recipeId.value)
+    }
   }
 
   cancel() {

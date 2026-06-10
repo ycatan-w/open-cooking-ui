@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, type ComponentPublicInstance } from 'vue'
-import IconMagnifyingGlass from '@/components/icons/IconMagnifyingGlass.vue'
+import { IconMagnifyingGlass } from '@/assets/icons'
 
 const isDark = ref(true)
 function applyTheme() {
@@ -9,12 +9,10 @@ function applyTheme() {
     isDark.value,
   )
 }
-
 function toggleTheme() {
   isDark.value = !isDark.value
   applyTheme()
 }
-
 const bgOptions = ref<string[]>([
   'bg-page',
   'bg-surface',
@@ -184,9 +182,7 @@ const stepsGenerated = ref({
     next: 1
   }
 })
-const currentStep = ref<number>(0)
 const nextStep = ref<number>(1)
-const stepperRef = ref<HTMLElement>()
 const stepRefs = new Map<string, HTMLElement>()
 
 function setStepRef(
@@ -251,10 +247,7 @@ onMounted(applyTheme)
         </span>
       </div>
       <div>
-        <RouterLink class="link m-3" to="/">Go to Home</RouterLink>
-        <RouterLink class="link m-3" to="/playground/page-1">Page 1</RouterLink>
-        <RouterLink class="link m-3" to="/playground/page-2">Page 2</RouterLink>
-        <RouterLink class="link m-3" to="/playground/page-3">Page 3</RouterLink>
+        <RouterLink class="link m-3" to="/">Go back Home</RouterLink>
       </div>
 
       <button class="btn-secondary" @click="toggleTheme">
@@ -1135,7 +1128,7 @@ onMounted(applyTheme)
               <div class="card-body">
                 <div class="card-description">
                   <button class="btn btn-primary m-2" @click="moveStep('sv-h-fixed-animated')">Goto Step {{ nextStep
-                  }}</button>
+                    }}</button>
                   Current: {{ stepsGenerated['sv-h-fixed-animated'].current }}
                   Next: {{ stepsGenerated['sv-h-fixed-animated'].next }} {{ stepsGenerated['sv-h-fixed-animated'].next
                     === 0 ?

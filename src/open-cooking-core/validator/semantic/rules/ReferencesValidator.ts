@@ -31,11 +31,11 @@ export class ReferencesValidator implements ValidatorInterface<OCSDocument> {
     for (const refs of Object.values(collectedRefs)) {
       for (const ref of refs) {
         this.validateRef(ref, context)
-        if (ref in registeredRefs) {
+        if (!registeredRefs.filter((r) => r === ref).length) {
           context.diagnosticsCollector.collect(
             SemanticValidationProcess.error({
               code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_NOT_FOUND,
-              message: `Reference "${ref}" does not exist`,
+              message: `Reference "${ref}" could not be resolved.`,
             }),
           )
         }
@@ -46,7 +46,7 @@ export class ReferencesValidator implements ValidatorInterface<OCSDocument> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_CYCLIC,
-          message: cycle.join(' -> '),
+          message: `Circular reference detected: ${cycle.join(' → ')}`,
         }),
       )
     }
@@ -65,12 +65,28 @@ export class ReferencesValidator implements ValidatorInterface<OCSDocument> {
 
   collectIngredientRefs(from: string, ingredient: OCSIngredientObject, context: Context) {
     if (ingredient.$ref !== undefined) {
+      if (!ingredient.$ref.match(/#\/ingredients/)) {
+        context.diagnosticsCollector.collect(
+          SemanticValidationProcess.error({
+            code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
+            message: `Reference target (${ingredient.$ref}) must resolve to an Ingredient object.`,
+          }),
+        )
+      }
       this.collectRefInto(this.collectedRefs.ingredientRefs, from, ingredient.$ref, context)
     }
   }
 
   collectIngredientRecipeRef(from: string, ingredient: OCSIngredientObject, context: Context) {
     if (ingredient.recipe?.$ref !== undefined) {
+      if (!ingredient.recipe.$ref.match(/#\/recipes/)) {
+        context.diagnosticsCollector.collect(
+          SemanticValidationProcess.error({
+            code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_NOT_FOUND,
+            message: `Reference target (${ingredient.recipe?.$ref}) must resolve to a Recipe object.`,
+          }),
+        )
+      }
       this.collectRefInto(
         this.collectedRefs.ingredientRecipeRefs,
         from,
@@ -81,11 +97,27 @@ export class ReferencesValidator implements ValidatorInterface<OCSDocument> {
   }
   collectEquipmentRef(from: string, equipment: OCSEquipmentObject, context: Context) {
     if (equipment.$ref !== undefined) {
+      if (!equipment.$ref.match(/#\/equipment/)) {
+        context.diagnosticsCollector.collect(
+          SemanticValidationProcess.error({
+            code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_NOT_FOUND,
+            message: `Reference target (${equipment.$ref}) must resolve to an Equipment object.`,
+          }),
+        )
+      }
       this.collectRefInto(this.collectedRefs.equipmentRefs, from, equipment.$ref, context)
     }
   }
   collectTechniqueRefs(from: string, technique: OCSTechniqueObject, context: Context) {
     if (technique.$ref !== undefined) {
+      if (!technique.$ref.match(/#\/techniques/)) {
+        context.diagnosticsCollector.collect(
+          SemanticValidationProcess.error({
+            code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_NOT_FOUND,
+            message: `Reference target (${technique.$ref}) must resolve to a Technique object.`,
+          }),
+        )
+      }
       this.collectRefInto(this.collectedRefs.techniqueRefs, from, technique.$ref, context)
     }
   }
@@ -102,7 +134,7 @@ export class ReferencesValidator implements ValidatorInterface<OCSDocument> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
-          message: `Invalid ref format "${ref}"`,
+          message: `Reference "${ref}" uses an invalid format.`,
         }),
       )
     }

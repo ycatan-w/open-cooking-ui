@@ -10,7 +10,7 @@ export class IdValidator implements ValidatorInterface<string> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ID,
-          message: `invalid id '${documentName}' for ${path.toString()}`,
+          message: `"${documentName}" is not a valid identifier for ${path.toString()}.`,
         }),
       )
     }

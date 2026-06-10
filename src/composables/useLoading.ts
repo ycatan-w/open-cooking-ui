@@ -4,12 +4,15 @@ import CometView from '@/components/loaders/CometView.vue'
 import ProgressView from '@/components/loaders/ProgressView.vue'
 import StepperVerticalView from '@/components/loaders/StepperVerticalView.vue'
 import { ref, shallowRef, watch } from 'vue'
-import type { Router } from 'vue-router'
+import type { RouteLocationNormalizedLoadedGeneric, Router } from 'vue-router'
 import { useOpenCookingManager } from './useOpenCookingManager'
+import type { FileDescriptor } from '@/open-cooking-manager/FileLoader'
+import { useDocumentStore } from '@/stores/document.store'
+import { RoutingService } from '@/services/RoutingService'
 
-const { manager } = useOpenCookingManager()
+const { manager, currentRecipe } = useOpenCookingManager()
 const loaders = {
-  stepper: StepperVerticalView,
+  // stepper: StepperVerticalView,
   comet: CometView,
   brand: BrandView,
   brand2: BrandView2,
@@ -26,18 +29,29 @@ watch(randLoader, () => {
   currentLoader.value = loaders[randLoader.value]
 })
 
-export function useLoading(options: { router?: Router } = {}) {
+export function useLoading(
+  options: { router?: Router; route?: RouteLocationNormalizedLoadedGeneric } = {},
+) {
   return {
     loaderName: randLoader,
     loaderView: currentLoader,
-    loadUrlSpec: (url: string) => {
+    loadUrlSpec: async (spec: FileDescriptor) => {
       if (options.router == undefined) {
         return
       }
       randLoader.value = getRandomLoader()
-      console.log(randLoader.value)
-      manager.loadUrl(url)
-      options.router.push('/loading')
+      await manager.loadUrl(spec)
+      const documentStore = useDocumentStore()
+      if (documentStore.recipeId.value && manager.loadedSpecIsValid()) {
+        currentRecipe.value = manager.loadedSpec.value?.data?.findRecipe(
+          documentStore.recipeId.value,
+        )
+        if (options.route?.path !== '/explore') {
+          options.router.push(`${RoutingService.recipe(documentStore.recipeId.value || '')}`)
+        }
+      } else {
+        options.router.push('/')
+      }
     },
   }
 }

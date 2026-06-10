@@ -3,6 +3,7 @@ import { DiagnosticCategory, SchemaDiagnosticCode } from '../diagnostics'
 import { OCSDocumentSchema, type OCSDocument } from '../schema'
 import type { OpenCookingProcessJob, ParsedDocument } from '../types'
 import { AbstractProcess } from './'
+import * as z from 'zod'
 
 export class SchemaValidationProcess extends AbstractProcess {
   protected static category = DiagnosticCategory.SCHEMA
@@ -16,7 +17,7 @@ export class SchemaValidationProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         SchemaValidationProcess.error({
           code: SchemaDiagnosticCode.SCHEMA_UNDEFINED_DOCUMENT,
-          message: 'undefined',
+          message: 'No document was provided for schema validation.',
         }),
       )
       return
@@ -27,7 +28,7 @@ export class SchemaValidationProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         SchemaValidationProcess.error({
           code: SchemaDiagnosticCode.SCHEMA_INVALID_DOCUMENT,
-          message: 'invalid',
+          message: 'The document does not conform to the OCS schema.',
           extra: result.error,
         }),
       )

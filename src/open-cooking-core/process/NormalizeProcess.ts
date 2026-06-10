@@ -17,7 +17,7 @@ export class NormalizeProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         NormalizeProcess.error({
           code: NormalizerDiagnosticCode.NORMALIZER_UNDEFINED_DOCUMENT,
-          message: 'Document is not defined',
+          message: 'No document was provided for normalization.',
         }),
       )
       job.status = 'fail'
@@ -31,7 +31,7 @@ export class NormalizeProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         NormalizeProcess.fatal({
           code: NormalizerDiagnosticCode.NORMALIZER_FAILURE,
-          message: 'fail',
+          message: 'Failed to normalize the specification document.',
         }),
       )
     }

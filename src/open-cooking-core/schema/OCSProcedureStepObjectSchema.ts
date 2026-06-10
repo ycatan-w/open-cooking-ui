@@ -19,6 +19,9 @@ export const OCSProcedureStepObjectSchema = BaseOCSObjectSchema.extend({
   instruction: z.string(),
   duration: ISO8601DurationSchema.optional(),
   techniques: z.array(z.union([OCSTechniqueObjectSchema, OCSReferenceObjectSchema])).optional(),
+  get subSteps() {
+    return z.array(OCSProcedureStepObjectSchema).optional()
+  },
   annotations: z.array(OCSAnnotationObjectSchema).optional(),
   media: z.array(OCSMediaObjectSchema).optional(),
   $ref: z.string().optional(),

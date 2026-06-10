@@ -35,14 +35,14 @@ export class TechniquesValidator implements ValidatorInterface<OCSTechniqueObjec
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
-          message: 'Name and reference cannot be used at the same time',
+          message: 'Technique cannot define both "name" and "$ref".',
         }),
       )
     }
 
     if (document.$ref) {
       referencesValidator.collectTechniqueRefs(
-        `#/${path.toReference().replace(/\/techniques\/\d+/, '')}`,
+        `${path.toReference().replace(/\/techniques\/\d+/, '')}`,
         document,
         context,
       )
@@ -52,7 +52,7 @@ export class TechniquesValidator implements ValidatorInterface<OCSTechniqueObjec
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'technique name is empty',
+          message: 'Technique name should not be empty.',
         }),
       )
     }
@@ -64,7 +64,7 @@ export class TechniquesValidator implements ValidatorInterface<OCSTechniqueObjec
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.category || ''} invalid techniques category`,
+          message: `"${document.category}" is not a valid technique category.`,
         }),
       )
     }

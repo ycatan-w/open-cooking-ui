@@ -18,7 +18,7 @@ export class ResolveProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         ResolveProcess.error({
           code: ResolverDiagnosticCode.RESOLVER_UNDEFINED_DOCUMENT,
-          message: 'undefined doc',
+          message: 'No document was provided for reference resolution.',
         }),
       )
       job.status = 'fail'
@@ -31,7 +31,10 @@ export class ResolveProcess extends AbstractProcess {
     } catch {
       job.status = 'fail'
       context.diagnosticsCollector.collect(
-        ResolveProcess.fatal({ code: ResolverDiagnosticCode.RESOLVER_FAILURE, message: 'fail' }),
+        ResolveProcess.fatal({
+          code: ResolverDiagnosticCode.RESOLVER_FAILURE,
+          message: 'Failed to resolve document references.',
+        }),
       )
     }
   }

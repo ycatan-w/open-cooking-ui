@@ -22,6 +22,9 @@ export class OpenCookingDefinition {
   findRecipe(id: string): Recipe | undefined {
     return this.recipes.get(id)
   }
+  findRecipeByName(name: string) {
+    this.recipes.findByTag
+  }
 
   findIngredient(id: string): Ingredient | undefined {
     return this.ingredients.get(id)

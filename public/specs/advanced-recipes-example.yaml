@@ -167,6 +167,14 @@ recipes:
         techniques:
           - $ref: '#/techniques/mixing'
 
+        subSteps:
+          - instruction: Add yogurt to the mixing bowl.
+
+          - instruction: Add lemon juice and salt.
+
+          - instruction: Whisk until smooth.
+            duration: PT2M
+
         annotations:
           - type: tip
             text: Whisk continuously for a smoother texture.
@@ -265,6 +273,13 @@ recipes:
 
         duration: PT5M
 
+        subSteps:
+          - instruction: Pat the chicken dry with paper towels.
+
+          - instruction: Sprinkle paprika and salt evenly over both sides.
+
+          - instruction: Rub the seasoning into the meat.
+
         annotations:
           - type: tip
             text: Coat the chicken evenly.
@@ -279,6 +294,18 @@ recipes:
 
         techniques:
           - $ref: '#/techniques/grilling'
+
+        subSteps:
+          - instruction: Preheat the cast iron pan over medium-high heat.
+            duration: PT5M
+
+          - instruction: Place the chicken in the hot pan.
+
+          - instruction: Cook the first side until browned.
+            duration: PT7M
+
+          - instruction: Turn the chicken and cook until fully cooked.
+            duration: PT8M
 
         annotations:
           - type: warning
@@ -297,6 +324,11 @@ recipes:
 
         duration: PT2M
 
+        subSteps:
+          - instruction: Heat each flatbread briefly on both sides.
+
+          - instruction: Keep warmed flatbreads covered until assembly.
+
       - name: Assemble Wraps
 
         step_number: 4
@@ -304,6 +336,17 @@ recipes:
         instruction: Assemble wraps and serve immediately.
 
         duration: PT5M
+
+        subSteps:
+          - instruction: Spread yogurt sauce over each flatbread.
+
+          - instruction: Slice the grilled chicken.
+
+          - instruction: Place the chicken onto the flatbread.
+
+          - instruction: Fold the flatbread into wraps.
+
+          - instruction: Serve immediately.
 
         annotations:
           - type: chef-note

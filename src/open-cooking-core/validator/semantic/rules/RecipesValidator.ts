@@ -53,7 +53,7 @@ export class RecipesValidator implements ValidatorInterface<OCSRecipeObject> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'Recipe name is empty',
+          message: 'Recipe name should not be empty.',
         }),
       )
     }
@@ -63,7 +63,7 @@ export class RecipesValidator implements ValidatorInterface<OCSRecipeObject> {
         context.diagnosticsCollector.collect(
           SemanticValidationProcess.error({
             code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-            message: `${category || ''} invalid recipe category`,
+            message: `"${category}" is not a valid recipe category.`,
           }),
         )
       }
@@ -78,7 +78,7 @@ export class RecipesValidator implements ValidatorInterface<OCSRecipeObject> {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.difficulty?.value || ''} invalid difficulty value`,
+          message: `"${document.difficulty?.value}" is not a valid difficulty level.`,
         }),
       )
     }

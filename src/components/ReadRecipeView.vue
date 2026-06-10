@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { useOpenCookingManager } from '@/composables/useOpenCookingManager';
-import { Annotation, Equipment, Ingredient, Media, Reference, Technique } from '@/open-cooking-core/runtime/objects';
+import { Annotation, Equipment, Ingredient, Media, Technique } from '@/open-cooking-core/runtime/objects';
 import { computed, ref } from 'vue';
 import Drawer from './Drawer.vue';
 import { AnnotationView, EquipmentView, MediaView, SourceView } from './readRecipe';
 import TechniqueView from './readRecipe/TechniqueView.vue';
 import IngredientView from './readRecipe/IngredientView.vue';
-
-type ResolveObject<T> = {
-  type: 'inline' | 'reference'
-  object: T
-}
+import { formatDuration, resolveRef } from '@/helpers/routing.helper.ts';
+import { RoutingService } from '@/services/RoutingService.ts';
 
 type DrawerState =
   | {
@@ -38,34 +35,8 @@ type DrawerState =
     media: Media[]
   }
   | undefined
-const { currentRecipe, actions } = useOpenCookingManager()
+const { currentRecipe } = useOpenCookingManager()
 
-function resolveRef<T extends object>(objects?: (T | Reference<T>)[]): ResolveObject<T>[] {
-  return (objects || [])
-    .map((i) => ((i instanceof Reference ? { object: i.resolve(), type: 'reference' } : { object: i, type: 'inline' }) as ResolveObject<T>))
-    .filter((i) => i.object !== undefined)
-}
-const formatDuration = (seconds: number): string => {
-  const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
-  const s = seconds % 60
-
-  const parts: string[] = []
-
-  if (h > 0) {
-    parts.push(`${h}h`)
-  }
-
-  if (m > 0) {
-    parts.push(`${h > 0 ? m.toString().padStart(2, '0') : m}m`)
-  }
-
-  if (s > 0 || parts.length === 0) {
-    parts.push(`${parts.length > 0 ? s.toString().padStart(2, '0') : s}s`)
-  }
-
-  return parts.join('')
-}
 const computedIngredients = computed(() => resolveRef(currentRecipe.value?.ingredients))
 const computedEquipment = computed(() => resolveRef(currentRecipe.value?.equipments))
 const drawerView = ref<DrawerState>()
@@ -127,14 +98,12 @@ const drawerComponent = computed(() => {
     <component :is="drawerComponent?.component" v-bind="drawerComponent?.props" />
   </Drawer>
 
-
   <div class="h-full grid grid-cols-4">
     <div class="col-span-3 min-h-0 flex flex-col">
       <header class="mb-4">
         <h1 class="text-5xl font-semibold tracking-tight heading-accent">
           {{ currentRecipe?.name }}
         </h1>
-
         <p v-if="currentRecipe?.summary?.length" class="mt-4 max-w-2xl text-base leading-relaxed text-muted">
           {{ currentRecipe?.summary }}
         </p>
@@ -166,12 +135,17 @@ const drawerComponent = computed(() => {
             @click="drawerView = { type: 'media', media: (currentRecipe?.media || []) }">
             Resources ({{ currentRecipe?.media.length }})
           </div>
+          <!-- <RouterLink v-if="currentRecipe?.id" :to="`${RoutingService.cook(currentRecipe.id || '')}`"
+            class="flex items-center gap-2 text-xs px-3 py-1 link-inline cursor-pointer">
+            <IconPlay class="w-4 h-4" /> Start Cooking
+          </RouterLink> -->
+
         </div>
 
         <div class="mt-6 flex flex-wrap gap-3">
-          <div v-if="currentRecipe?.difficulty?.length" class="rounded-lg border bg-brand-purple border-soft px-3 py-2">
-            <p class="text-xs text-white font-semibold">Difficulty</p>
-            <p class="mt-1 text-sm text-white/70">
+          <div v-if="currentRecipe?.difficulty?.length" class="rounded-lg border bg-surface border-soft px-3 py-2">
+            <p class="text-xs font-semibold">Difficulty</p>
+            <p class="mt-1 text-sm text-muted">
               {{ currentRecipe?.difficulty }}
               <span v-if="currentRecipe?.difficultyRational" class="oc-popover oc-popover-right group cursor-help">
                 ⓘ
@@ -181,23 +155,23 @@ const drawerComponent = computed(() => {
               </span>
             </p>
           </div>
-          <div v-if="currentRecipe?.details?.prepTime" class="rounded-lg border bg-brand-purple border-soft px-3 py-2">
-            <p class="text-xs text-white font-semibold">Prep Time</p>
-            <p class="mt-1 text-sm text-white/70">
+          <div v-if="currentRecipe?.details?.prepTime" class="rounded-lg border bg-surface border-soft px-3 py-2">
+            <p class="text-xs font-semibold">Prep Time</p>
+            <p class="mt-1 text-sm text-muted">
               {{ formatDuration(currentRecipe.details.prepTime) }}
             </p>
           </div>
-          <div v-if="currentRecipe?.details?.cookTime" class="rounded-lg border bg-brand-purple border-soft px-3 py-2">
-            <p class="text-xs text-white font-semibold">Cook Time</p>
+          <div v-if="currentRecipe?.details?.cookTime" class="rounded-lg border bg-surface border-soft px-3 py-2">
+            <p class="text-xs font-semibold">Cook Time</p>
 
-            <p class="mt-1 text-sm text-white/70">
+            <p class="mt-1 text-sm text-muted">
               {{ formatDuration(currentRecipe.details.cookTime) }}
             </p>
           </div>
           <div v-if="currentRecipe?.details?.quantity?.length"
-            class="rounded-lg border bg-brand-purple border-soft px-3 py-2">
-            <p class="text-xs text-white font-semibold">Yield</p>
-            <p class="mt-1 text-sm text-white/70">
+            class="rounded-lg border bg-surface border-soft px-3 py-2">
+            <p class="text-xs font-semibold">Yield</p>
+            <p class="mt-1 text-sm text-muted">
               {{ currentRecipe?.details?.quantity }}
             </p>
           </div>
@@ -239,6 +213,11 @@ const drawerComponent = computed(() => {
               <p class="text-sm leading-relaxed">
                 {{ step.instruction }}
               </p>
+              <ul class="list list-timeline">
+                <li v-for="subStep in step.subSteps" class="text-xs list-item">
+                  {{ subStep.instruction }}
+                </li>
+              </ul>
               <div class="flex gap-2 pb-4">
                 <span v-for="t in resolveRef(step.techniques)" class="link-ref cursor-pointer text-xs"
                   @click="drawerView = { type: 'technique', technique: t.object }">
@@ -259,17 +238,18 @@ const drawerComponent = computed(() => {
         </h5>
         <ul class="space-y-3 text-sm">
           <li v-for="ingredient in computedIngredients" class="flex justify-between">
-            <span @click="ingredient.object.recipeRef !== null ?
-              actions.setCurrentRecipe(ingredient.object.recipeRef.id) :
-              drawerView = { type: 'ingredient', ingredient: ingredient.object }" :class="[
-                { 'cursor-pointer link-sub-recipe oc-popover oc-popover-bottom': ingredient.object.recipeRef !== null },
-                { 'cursor-pointer link-ref': ingredient.object.recipeRef === null },
-              ]">
+            <router-link v-if="ingredient.object.recipeRef !== null"
+              class="cursor-pointer link-sub-recipe oc-popover oc-popover-bottom"
+              :to="`${RoutingService.recipe(ingredient.object.recipeRef.id || '')}`">
               {{ ingredient.object.name }}
               <span v-if="ingredient.object.recipeRef !== null"
                 class="oc-popover-content border-soft bg-surface-active text-muted">
                 View the recipe
               </span>
+            </router-link>
+            <span v-else class="cursor-pointer link-ref"
+              @click="drawerView = { type: 'ingredient', ingredient: ingredient.object }">
+              {{ ingredient.object.name }}
             </span>
             <span v-if="ingredient.object.quantity > 0" class="text-muted">
               {{ ingredient.object.quantity + ' ' + ingredient.object.unit.replace('unit', '') }}

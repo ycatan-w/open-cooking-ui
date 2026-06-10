@@ -15,11 +15,11 @@ export class RecipeDetailsValidator implements ValidatorInterface<OCSRecipeDetai
       return
     }
     const totalSeconds = (cookDuration?.totalSeconds || 0) + (prepDuration?.totalSeconds || 0)
-    if (totalSeconds !== totalDuration.totalSeconds) {
+    if (totalSeconds > totalDuration.totalSeconds) {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_DURATION,
-          message: "cook and prep duration doesn't match the total duration",
+          message: "Preparation time and cooking time do not match the total duration.'",
         }),
       )
     }
@@ -36,7 +36,7 @@ export class RecipeDetailsValidator implements ValidatorInterface<OCSRecipeDetai
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_DURATION,
-          message: 'Invalid duration format',
+          message: 'Duration format is invalid.',
         }),
       )
       return

@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { IconMoon, IconSun } from './icons';
+import { onMounted } from 'vue';
+import { IconMoon, IconSun } from '../assets/icons';
+import { themeService } from '@/services/ThemeService';
+import { useSettingsStore } from '@/stores/settings.store';
 
-const isDark = ref<boolean>(
-  ((localStorage.getItem('theme') as 'dark' | 'light' | null) === 'dark') ||
-  (window.matchMedia('(prefers-color-scheme: dark)').matches)
-)
-
-function toggleScheme(applyDark: boolean) {
-  isDark.value = applyDark
-  document.documentElement.classList.toggle('dark', applyDark)
-}
+const { theme } = useSettingsStore()
 
 onMounted(() => {
-  toggleScheme(isDark.value)
+  themeService.apply(theme.value)
 })
 </script>
 
 <template>
-  <div class="scheme-toggler" :class="{ 'is-dark': isDark }" @click="toggleScheme(!isDark)">
+  <div class="scheme-toggler" :class="{ 'is-dark': theme === 'dark' }"
+    @click="theme = theme === 'dark' ? 'light' : 'dark'; themeService.apply(theme)">
     <div class="scheme-toggler-thumb-container">
       <div class="scheme-toggler-thumb" />
     </div>
@@ -29,7 +24,6 @@ onMounted(() => {
       <IconSun />
     </div>
   </div>
-
 </template>
 
 <style lang="css" scoped>

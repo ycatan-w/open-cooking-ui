@@ -67,18 +67,18 @@ export class IngredientsValidator implements ValidatorInterface<OCSIngredientObj
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
-          message: 'recipe and reference cannot be used at the same time',
+          message: 'Ingredient cannot define both "recipe" and "$ref".',
         }),
       )
     }
     referencesValidator.collectIngredientRefs(
-      `#/${path.toReference().replace(/\/ingredients\/\d+/, '')}`,
+      `${path.toReference().replace(/\/ingredients\/\d+/, '')}`,
       document,
       context,
     )
 
     referencesValidator.collectIngredientRecipeRef(
-      `#/${path.toReference().replace(/\/ingredients\/\d+/, '')}`,
+      `${path.toReference().replace(/\/ingredients\/\d+/, '')}`,
       document,
       context,
     )
@@ -87,7 +87,7 @@ export class IngredientsValidator implements ValidatorInterface<OCSIngredientObj
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'Ingredient name is empty',
+          message: 'Ingredient name should not be empty.',
         }),
       )
     }
@@ -101,7 +101,7 @@ export class IngredientsValidator implements ValidatorInterface<OCSIngredientObj
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.category || ''} invalid ingredient category`,
+          message: `"${document.category}" is not a valid ingredient category.`,
         }),
       )
     }
@@ -112,7 +112,7 @@ export class IngredientsValidator implements ValidatorInterface<OCSIngredientObj
         context.diagnosticsCollector.collect(
           SemanticValidationProcess.error({
             code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-            message: `${document.unit || ''} invalid ingredient unit`,
+            message: `"${document.unit}" is not a valid ingredient unit.`,
           }),
         )
       }
@@ -120,7 +120,7 @@ export class IngredientsValidator implements ValidatorInterface<OCSIngredientObj
         context.diagnosticsCollector.collect(
           SemanticValidationProcess.error({
             code: SemanticDiagnosticCode.SEMANTIC_INVALID_QUANTITY,
-            message: 'Invalid quantity value',
+            message: 'Ingredient quantity must be greater than or equal to zero.',
           }),
         )
       }

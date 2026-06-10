@@ -31,14 +31,14 @@ export class EquipmentValidator implements ValidatorInterface<OCSEquipmentObject
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_REFERENCE_INVALID_FORMAT,
-          message: 'Name and reference cannot be used at the same time',
+          message: 'Equipment cannot define both "name" and "$ref".',
         }),
       )
     }
 
     if (document.$ref) {
       referencesValidator.collectEquipmentRef(
-        `#/${path.toReference().replace(/\/equipment\/\d+/, '')}`,
+        `${path.toReference().replace(/\/equipment\/\d+/, '')}`,
         document,
         context,
       )
@@ -51,7 +51,7 @@ export class EquipmentValidator implements ValidatorInterface<OCSEquipmentObject
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.category || ''} invalid equipment category`,
+          message: `"${document.category}" is not a valid equipment category.`,
         }),
       )
     }

@@ -17,7 +17,7 @@ export class SemanticValidationProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_UNDEFINED_DOCUMENT,
-          message: 'undefined',
+          message: 'No document was provided for semantic validation.',
         }),
       )
       job.status = 'fail'
@@ -36,7 +36,7 @@ export class SemanticValidationProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.fatal({
           code: SemanticDiagnosticCode.SEMANTIC_FAILURE,
-          message: 'failure',
+          message: 'Semantic validation failed due to an unexpected error.',
         }),
       )
     }

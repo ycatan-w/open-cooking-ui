@@ -1,6 +1,5 @@
 import type { ProcessEvent, ProcessFlowEvent } from '@/open-cooking-core/event-dispatcher'
 import type { OpenCookingProcessJob } from '@/open-cooking-core/types'
-import { localSpecFormat } from '@/stores/LocalSpecInfo'
 import { pipelineState } from '@/stores/PipelineState'
 
 async function sleep(ms: number): Promise<void> {
@@ -28,8 +27,6 @@ export class EventListener {
   async onStartFlow(e: ProcessFlowEvent) {
     this.flowStartAt = e.context?.time || Date.now()
 
-    localSpecFormat.value = null
-
     pipelineState.running = true
     pipelineState.progress = 0
     pipelineState.current = 0
@@ -46,7 +43,7 @@ export class EventListener {
     this.processStartAt = 0
     this.processEndAt = 0
 
-    console.log(
+    console.debug(
       `[ProcessFlow] started at ${new Date(this.flowStartAt).toUTCString()} for ${e.context?.processesInfo?.length || 0} processes.`,
     )
     // await sleeprand()
@@ -61,17 +58,12 @@ export class EventListener {
 
     // ----
     this.flowEndAt = e.context?.time || 0
-    console.log(
+    console.debug(
       `[ProcessFlow] ended at ${new Date(this.flowEndAt).toUTCString()} for ${e.context?.processesInfo?.length || 0} processes and took ${this.flowEndAt - this.flowStartAt}ms.`,
     )
     // await sleeprand()
   }
   async onStartProcess(e: ProcessEvent) {
-    if (this.isJobOpenCookingProcessJob(e.context?.job) && localSpecFormat.value === null) {
-      console.log(localSpecFormat.value)
-      localSpecFormat.value = e.context.job.context.storage.format || null
-    }
-
     pipelineState.current += 1
 
     pipelineState.currentProcess = e.context?.process || 'unknown'
@@ -80,29 +72,26 @@ export class EventListener {
     // ----
     this.processStartAt = e.context?.time || 0
     this.currentProcessNumber++
-    console.log(
+    console.debug(
       `[Process][${e.context?.process || 'unnamed'}][${this.currentProcessNumber}/${this.processLength}] started at ${new Date(this.processStartAt).toUTCString()} for ${e.context?.process || 'unnamed'} process.`,
     )
-    console.log(`input ->`, e.context?.job)
-    const randNb = getRandomIntInclusive(3, 10)
-    console.log(`sleep for: ${randNb}s`)
+    console.debug(`input ->`, e.context?.job)
+    // const randNb = getRandomIntInclusive(3, 10)
+    // console.log(`sleep for: ${randNb}s`)
 
     // await e.context?.job?.context.sleep(randNb * 1000)
     // await sleeprand()
   }
   async onEndProcess(e: ProcessEvent) {
-    if (this.isJobOpenCookingProcessJob(e.context?.job) && localSpecFormat.value === null) {
-      localSpecFormat.value = e.context.job.context.storage.format || null
-    }
     if (e?.context?.process !== undefined && e?.context?.job?.status === 'complete') {
       pipelineState.completed.push(e.context.process)
     }
     // ----
     this.processEndAt = e.context?.time || 0
-    console.log(
+    console.debug(
       `[Process][${e.context?.process || 'unnamed'}][${this.currentProcessNumber}/${this.processLength}] ended at ${new Date(this.processEndAt).toUTCString()} for ${e.context?.process || 'unnamed'} process and took ${this.processEndAt - this.processStartAt}ms.`,
     )
-    console.log(`output ->`, e.context?.job)
+    console.debug(`output ->`, e.context?.job)
     // await sleeprand()
   }
 

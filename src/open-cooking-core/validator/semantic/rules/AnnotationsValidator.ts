@@ -24,7 +24,7 @@ export class AnnotationsValidator implements ValidatorInterface<OCSAnnotationObj
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_ENUM,
-          message: `${document.category || ''} invalid annotation category`,
+          message: `"${document.type}" is not a valid annotation type.`,
         }),
       )
     }
@@ -33,7 +33,7 @@ export class AnnotationsValidator implements ValidatorInterface<OCSAnnotationObj
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'annotation text is empty',
+          message: 'Annotation text should not be empty.',
         }),
       )
     }

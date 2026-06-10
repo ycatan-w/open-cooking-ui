@@ -1,5 +1,5 @@
 import type { Context } from '../Context'
-import type { Diagnostic, DiagnosticCategory } from '../diagnostics'
+import type { Diagnostic, DiagnosticCategory, DiagnosticCollector } from '../diagnostics'
 import type { OpenCookingDefinition } from '../runtime/definition'
 
 export type Option = {
@@ -26,7 +26,7 @@ export type OpenCookingInput =
 export type OpenCookingOutput = {
   data: OpenCookingDefinition | null
   metadata?: { format: string | null }
-  diagnostics: Diagnostic<DiagnosticCategory>[]
+  diagnostics: DiagnosticCollector
 }
 
 export type LoadedDocument =

@@ -16,7 +16,7 @@ export class StepsValidator implements ValidatorInterface<OCSProcedureStepObject
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.warning({
           code: SemanticDiagnosticCode.SEMANTIC_EMPTY_TEXT,
-          message: 'Step name is empty',
+          message: 'Step instruction should not be empty.',
         }),
       )
     }
@@ -36,6 +36,10 @@ export class StepsValidator implements ValidatorInterface<OCSProcedureStepObject
     for (const media of document.media || []) {
       mediasValidator.validate(mediaPath, media, context)
     }
+    const subStepPath = path.child('subSteps')
+    for (const subStep of document?.subSteps || []) {
+      this.validate(subStepPath, subStep, context)
+    }
   }
 
   private parseDuration(value: string, context: Context) {
@@ -49,7 +53,7 @@ export class StepsValidator implements ValidatorInterface<OCSProcedureStepObject
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_INVALID_DURATION,
-          message: 'Invalid duration format',
+          message: 'Duration format is invalid.',
         }),
       )
       return

@@ -18,16 +18,7 @@ import {
 
 export class RecipeFactory extends RuntimeObjectFactory {
   static create(id: string, source: OCSRecipeObject, context: RuntimeContext) {
-    return RecipeFactory.createCommonBuilder(source, context)
-      .withId(RuntimeContext.RuntimeRefId.recipe(id))
-      .build()
-  }
-
-  static createReference(source: { $ref: string }, context: RuntimeContext): Reference<Recipe> {
-    return ReferenceFactory.fromRecord(source, context.definition.recipes)
-  }
-
-  private static createCommonBuilder(source: OCSRecipeObject, context: RuntimeContext) {
+    id = RuntimeContext.RuntimeRefId.recipe(id)
     const builder = Recipe.builder()
       .withName(source.name)
       .withSummary(source.summary || '')
@@ -37,6 +28,7 @@ export class RecipeFactory extends RuntimeObjectFactory {
       .withSourceName(source.source?.name || '')
       .withSourceSummary(source.source?.summary || '')
       .withSourceUrl(source.source?.url || '')
+      .withId(id)
     ;(source.category || []).forEach((c) => builder.addCategory(c))
     ;(source.tags || []).forEach((c) => builder.addTag(c))
     if (RecipeFactory.isRecipeDetails(source.details)) {
@@ -45,9 +37,9 @@ export class RecipeFactory extends RuntimeObjectFactory {
     ;(source.source?.annotations || []).forEach((annotation) =>
       builder.addSourceAnnotation(new Annotation(annotation.type || 'note', annotation.text)),
     )
-    ;(source.steps || []).forEach((s) => {
+    ;(source.steps || []).forEach((s, index) => {
       if (RecipeFactory.isRecipeStep(s)) {
-        builder.addStep(RecipeStepFactory.create(s, context))
+        builder.addStep(RecipeStepFactory.createWithId(`${id}/steps/${index}`, s, context))
       }
     })
     ;(source.equipment || []).forEach((e) => {
@@ -68,7 +60,11 @@ export class RecipeFactory extends RuntimeObjectFactory {
       )
     }
 
-    return builder
+    return builder.build()
+  }
+
+  static createReference(source: { $ref: string }, context: RuntimeContext): Reference<Recipe> {
+    return ReferenceFactory.fromRecord(source, context.definition.recipes)
   }
 
   private static isIngredientReference(

@@ -19,7 +19,7 @@ export class RuntimeProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         RuntimeProcess.error({
           code: RuntimeDiagnosticCode.RUNTIME_UNDEFINED_DOCUMENT,
-          message: 'undefined',
+          message: 'No document was provided for runtime generation.',
         }),
       )
       return
@@ -32,7 +32,7 @@ export class RuntimeProcess extends AbstractProcess {
       context.diagnosticsCollector.collect(
         RuntimeProcess.fatal({
           code: RuntimeDiagnosticCode.RUNTIME_BUILD_FAILURE,
-          message: 'fail',
+          message: 'Failed to build the runtime representation.',
         }),
       )
     }

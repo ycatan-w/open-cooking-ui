@@ -11,7 +11,7 @@ export class InformationValidator implements ValidatorInterface<OCSInformationOb
       context.diagnosticsCollector.collect(
         SemanticValidationProcess.error({
           code: SemanticDiagnosticCode.SEMANTIC_MISSING_INFORMATION_TITLE,
-          message: 'info.title missing',
+          message: 'The document title is required.',
         }),
       )
     }

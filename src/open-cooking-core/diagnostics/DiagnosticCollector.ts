@@ -13,11 +13,12 @@ export class DiagnosticCollector {
     this.items.push(diagnostic)
   }
   hasError(): boolean {
-    return (
-      -1 !==
-      this.items.findIndex((d) =>
-        [DiagnosticSeverity.ERROR, DiagnosticSeverity.FATAL].includes(d.severity),
-      )
-    )
+    return -1 !== this.items.findIndex((d) => [DiagnosticSeverity.ERROR].includes(d.severity))
+  }
+  hasFatal(): boolean {
+    return -1 !== this.items.findIndex((d) => [DiagnosticSeverity.FATAL].includes(d.severity))
+  }
+  hasWarning(): boolean {
+    return -1 !== this.items.findIndex((d) => [DiagnosticSeverity.WARNING].includes(d.severity))
   }
 }
