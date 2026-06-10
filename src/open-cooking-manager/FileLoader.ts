@@ -9,7 +9,7 @@ export class FileLoader {
     })
 
     return Object.entries(modules).map(([path, _]) => ({
-      id: path.replace('../../public/', '/open-cooking-ui/'),
+      id: path.replace('../../public/', window.location.pathname),
       filename: path.split('/').pop() ?? path,
     }))
   }
