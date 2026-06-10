@@ -1,0 +1,397 @@
+openCooking: 1.0.0
+
+info:
+  title: Advanced Open Cooking Example
+  description: Demonstrates most Open Cooking Specification features.
+  author: Open Cooking Contributors
+
+additionalValues:
+  recipeCategories:
+    - street-food
+
+  recipeDifficulties:
+    - expert
+
+  ingredientCategories:
+    - fermented
+
+  tags:
+    - family-style
+    - weeknight-meal
+
+  units:
+    - scoop
+
+  techniqueCategories:
+    - charring
+
+  equipmentCategories:
+    - outdoor-cooking
+
+  annotationTypes:
+    - chef-note
+
+  mediaTypes:
+    - infographic
+
+ingredients:
+  flatbread:
+    name: Flatbread
+    category: base
+
+    annotations:
+      - type: note
+        text: Store in an airtight container.
+
+  yogurt-sauce:
+    name: Yogurt Sauce
+
+    recipe:
+      $ref: '#/recipes/basic-yogurt-sauce'
+
+  paprika:
+    name: Paprika
+    category: spice
+
+equipment:
+  cast-iron-pan:
+    name: Cast Iron Pan
+    category: cookware
+    description: Heavy pan suitable for high heat cooking.
+
+    uses:
+      - searing
+      - grilling
+
+    annotations:
+      - type: note
+        text: Preheat thoroughly before use.
+
+    media:
+      - type: image
+        url: https://example.org/images/cast-iron-pan.jpg
+        caption: Cast iron pan
+
+  whisk:
+    name: Whisk
+    category: utensil
+
+techniques:
+  mixing:
+    name: Mixing
+    category: mixing
+
+    summary: Combine ingredients evenly.
+
+    description: Ingredients are combined until a uniform texture is achieved.
+
+    related:
+      - whisking
+      - folding
+
+    annotations:
+      - type: tip
+        text: Avoid overmixing delicate ingredients.
+
+    media:
+      - type: image
+        url: https://example.org/images/mixing.jpg
+        caption: Mixing technique
+
+  grilling:
+    name: Grilling
+    category: grilling
+
+    summary: Cook food using direct heat.
+
+    description: Food is cooked over a direct heat source.
+
+    related:
+      - roasting
+      - charring
+
+recipes:
+  basic-yogurt-sauce:
+    name: Basic Yogurt Sauce
+
+    version: 1.0
+
+    summary: Simple yogurt sauce suitable for grilled dishes.
+
+    category:
+      - sauce
+
+    tags:
+      - quick-preparation
+
+    details:
+      yield: 250 ml
+      prep_time: PT5M
+
+      annotations:
+        - type: note
+          text: Best served chilled.
+
+    difficulty:
+      value: easy
+      rationale: Requires only mixing ingredients.
+
+    ingredients:
+      - name: Yogurt
+        category: dairy
+        quantity: 200
+        unit: g
+
+      - name: Lemon Juice
+        category: seasoning
+        quantity: 1
+        unit: tbsp
+
+      - name: Salt
+        category: seasoning
+        quantity: 1
+        unit: pinch
+
+    equipment:
+      - $ref: '#/equipment/whisk'
+
+    steps:
+      - name: Combine Ingredients
+
+        step_number: 1
+
+        instruction: Mix all ingredients until smooth.
+
+        duration: PT2M
+
+        techniques:
+          - $ref: '#/techniques/mixing'
+
+        subSteps:
+          - instruction: Add yogurt to the mixing bowl.
+
+          - instruction: Add lemon juice and salt.
+
+          - instruction: Whisk until smooth.
+            duration: PT2M
+
+        annotations:
+          - type: tip
+            text: Whisk continuously for a smoother texture.
+
+        media:
+          - type: image
+            url: https://example.org/images/yogurt-sauce-step.jpg
+            caption: Mixing the yogurt sauce
+
+    source:
+      name: Family Recipe Notebook
+      summary: Traditional household sauce recipe.
+
+      annotations:
+        - type: note
+          text: Frequently served with grilled meats.
+
+    annotations:
+      - type: variation
+        text: Add fresh mint for additional flavor.
+
+    media:
+      - type: image
+        url: https://example.org/images/yogurt-sauce.jpg
+        caption: Finished yogurt sauce
+
+  chicken-wrap:
+    name: Grilled Chicken Wrap
+
+    version: 1.2
+
+    summary: Grilled chicken wrapped in flatbread with yogurt sauce.
+
+    category:
+      - main-course
+      - street-food
+
+    tags:
+      - quick-meal
+      - family-style
+      - weeknight-meal
+
+    details:
+      yield: 4 servings
+
+      prep_time: PT25M
+      cook_time: PT20M
+      total_time: PT45M
+
+      annotations:
+        - type: note
+          text: Total time assumes prepared yogurt sauce.
+
+    difficulty:
+      value: medium
+      rationale: Multiple components are prepared simultaneously.
+
+    ingredients:
+      - name: Chicken Thigh
+        category: protein
+        quantity: 600
+        unit: g
+
+        annotations:
+          - type: tip
+            text: Boneless chicken is easier to slice.
+
+      - $ref: '#/ingredients/flatbread'
+        quantity: 4
+        unit: unit
+
+      - name: Yogurt Sauce
+
+        recipe:
+          $ref: '#/recipes/basic-yogurt-sauce'
+
+        annotations:
+          - type: substitution
+            text: Garlic sauce may be used instead.
+
+      - $ref: '#/ingredients/paprika'
+        quantity: 1
+        unit: tbsp
+
+    equipment:
+      - $ref: '#/equipment/cast-iron-pan'
+
+      - $ref: '#/equipment/whisk'
+
+    steps:
+      - name: Season Chicken
+
+        step_number: 1
+
+        instruction: Season chicken with paprika and salt.
+
+        duration: PT5M
+
+        subSteps:
+          - instruction: Pat the chicken dry with paper towels.
+
+          - instruction: Sprinkle paprika and salt evenly over both sides.
+
+          - instruction: Rub the seasoning into the meat.
+
+        annotations:
+          - type: tip
+            text: Coat the chicken evenly.
+
+      - name: Grill Chicken
+
+        step_number: 2
+
+        instruction: Grill chicken until fully cooked.
+
+        duration: PT20M
+
+        techniques:
+          - $ref: '#/techniques/grilling'
+
+        subSteps:
+          - instruction: Preheat the cast iron pan over medium-high heat.
+            duration: PT5M
+
+          - instruction: Place the chicken in the hot pan.
+
+          - instruction: Cook the first side until browned.
+            duration: PT7M
+
+          - instruction: Turn the chicken and cook until fully cooked.
+            duration: PT8M
+
+        annotations:
+          - type: warning
+            text: Internal temperature should reach safe cooking levels.
+
+        media:
+          - type: image
+            url: https://example.org/images/grilling-chicken.jpg
+            caption: Chicken cooking on the grill
+
+      - name: Warm Flatbread
+
+        step_number: 3
+
+        instruction: Warm flatbread before assembly.
+
+        duration: PT2M
+
+        subSteps:
+          - instruction: Heat each flatbread briefly on both sides.
+
+          - instruction: Keep warmed flatbreads covered until assembly.
+
+      - name: Assemble Wraps
+
+        step_number: 4
+
+        instruction: Assemble wraps and serve immediately.
+
+        duration: PT5M
+
+        subSteps:
+          - instruction: Spread yogurt sauce over each flatbread.
+
+          - instruction: Slice the grilled chicken.
+
+          - instruction: Place the chicken onto the flatbread.
+
+          - instruction: Fold the flatbread into wraps.
+
+          - instruction: Serve immediately.
+
+        annotations:
+          - type: chef-note
+            text: Serve with extra yogurt sauce on the side.
+
+    source:
+      name: Family Recipe Notebook
+
+      summary: Adapted household recipe.
+
+      url: https://example.org/family-recipes/chicken-wrap
+
+      annotations:
+        - type: note
+          text: Originally prepared over charcoal.
+
+    annotations:
+      - type: variation
+        text: Substitute chicken with grilled halloumi.
+
+      - type: note
+        text: Suitable for outdoor cooking.
+
+    media:
+      - type: image
+        url: https://example.org/images/chicken-wrap.jpg
+        caption: Finished grilled chicken wrap
+
+      - type: video
+        url: https://example.org/videos/chicken-wrap.mp4
+        caption: Wrap assembly demonstration
+
+      - type: infographic
+        url: https://example.org/media/chicken-wrap-guide.pdf
+        caption: Visual preparation guide
+        attribution: Open Cooking Contributors
+
+    x-nutrition:
+      calories_per_serving: 540
+      protein_g: 38
+
+    x-allergens:
+      - dairy
+      - gluten
+
+    x-ai-hints:
+      preferred_serving_temperature: hot
+      recommended_pairing: mint tea
